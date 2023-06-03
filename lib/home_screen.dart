@@ -11,6 +11,10 @@ class HomeScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            'News',
+          ),
           bottom: TabBar(
             tabs: [
               Tab(

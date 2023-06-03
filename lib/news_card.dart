@@ -11,6 +11,8 @@ class NewsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
@@ -52,26 +54,19 @@ class NewsCard extends StatelessWidget {
                           ),
                         Text(
                           'The New York Times',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 12,
-                          ),
+                          style: theme.textTheme.labelSmall,
                         ),
                       ],
                     ),
                     const SizedBox(
                       height: 8,
                     ),
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'Facebook preparing new app to'
                         ' maintain pressure on Snapchat'
                         'asd assdasad s adsdaasd',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: theme.textTheme.headlineSmall,
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -79,12 +74,9 @@ class NewsCard extends StatelessWidget {
                     const SizedBox(
                       height: 8,
                     ),
-                    const Text(
+                    Text(
                       '1m ago',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 12,
-                      ),
+                      style: theme.textTheme.bodySmall,
                     ),
                   ],
                 ),
