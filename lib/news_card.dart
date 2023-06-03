@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'news_screen.dart';
+import 'article_screen.dart';
 
 const _isFavourite = false;
 
@@ -16,7 +16,7 @@ class NewsCard extends StatelessWidget {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) {
-              return const NewsScreen();
+              return const ArticleScreen();
             },
           ),
         );
