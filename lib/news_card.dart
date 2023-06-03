@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'news_screen.dart';
+
 const _isFavourite = false;
 
 class NewsCard extends StatelessWidget {
@@ -11,7 +13,13 @@ class NewsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        print('single tap');
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return const NewsScreen();
+            },
+          ),
+        );
       },
       onDoubleTap: () {
         print('double tap');
