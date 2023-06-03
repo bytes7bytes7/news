@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../application/view_models/view_models.dart';
-import 'news_card.dart';
+import 'article_card.dart';
 
-class NewsList extends StatelessWidget {
-  const NewsList({
+class ArticleList extends StatelessWidget {
+  const ArticleList({
     super.key,
     required this.articles,
   });
@@ -24,7 +24,7 @@ class NewsList extends StatelessWidget {
         itemBuilder: (context, index) {
           final article = articles[index];
 
-          return NewsCard(
+          return ArticleCard(
             article: article,
             onTap: () {},
             onDoubleTap: () {},

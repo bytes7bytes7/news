@@ -4,8 +4,8 @@ import '../../application/view_models/view_models.dart';
 
 const _height = 100.0;
 
-class NewsCard extends StatelessWidget {
-  const NewsCard({
+class ArticleCard extends StatelessWidget {
+  const ArticleCard({
     super.key,
     required this.article,
     required this.onTap,

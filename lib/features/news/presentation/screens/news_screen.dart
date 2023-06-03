@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../common/presentation/widgets/news_list.dart';
+import '../../../common/presentation/widgets/widgets.dart';
 
 class NewsScreen extends StatelessWidget {
   const NewsScreen({super.key});
@@ -28,10 +28,10 @@ class NewsScreen extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            NewsList(
+            ArticleList(
               articles: [],
             ),
-            NewsList(
+            ArticleList(
               articles: [],
             ),
           ],

@@ -1,2 +1,2 @@
-export 'news_card.dart';
-export 'news_list.dart';
+export 'article_card.dart';
+export 'article_list.dart';
