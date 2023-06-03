@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'top_news_screen.dart';
+import 'home_screen.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -9,7 +9,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'News',
-      home: TopNewsScreen(),
+      home: HomeScreen(),
     );
   }
 }
