@@ -22,6 +22,13 @@ class NewsScreen extends StatelessWidget {
             color: Colors.black,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.favorite),
+            color: Colors.black,
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
