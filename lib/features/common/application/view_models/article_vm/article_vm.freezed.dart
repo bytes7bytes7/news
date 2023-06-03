@@ -22,7 +22,8 @@ mixin _$ArticleVM {
   String? get description => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
-  String get publishedAt => throw _privateConstructorUsedError;
+  String get publishedAtShort => throw _privateConstructorUsedError;
+  String get publishedAtFull => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   bool get isFavourite => throw _privateConstructorUsedError;
 
@@ -43,7 +44,8 @@ abstract class $ArticleVMCopyWith<$Res> {
       String? description,
       String url,
       String? imageUrl,
-      String publishedAt,
+      String publishedAtShort,
+      String publishedAtFull,
       String content,
       bool isFavourite});
 
@@ -69,7 +71,8 @@ class _$ArticleVMCopyWithImpl<$Res, $Val extends ArticleVM>
     Object? description = freezed,
     Object? url = null,
     Object? imageUrl = freezed,
-    Object? publishedAt = null,
+    Object? publishedAtShort = null,
+    Object? publishedAtFull = null,
     Object? content = null,
     Object? isFavourite = null,
   }) {
@@ -98,9 +101,13 @@ class _$ArticleVMCopyWithImpl<$Res, $Val extends ArticleVM>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      publishedAt: null == publishedAt
-          ? _value.publishedAt
-          : publishedAt // ignore: cast_nullable_to_non_nullable
+      publishedAtShort: null == publishedAtShort
+          ? _value.publishedAtShort
+          : publishedAtShort // ignore: cast_nullable_to_non_nullable
+              as String,
+      publishedAtFull: null == publishedAtFull
+          ? _value.publishedAtFull
+          : publishedAtFull // ignore: cast_nullable_to_non_nullable
               as String,
       content: null == content
           ? _value.content
@@ -136,7 +143,8 @@ abstract class _$$_ArticleVMCopyWith<$Res> implements $ArticleVMCopyWith<$Res> {
       String? description,
       String url,
       String? imageUrl,
-      String publishedAt,
+      String publishedAtShort,
+      String publishedAtFull,
       String content,
       bool isFavourite});
 
@@ -161,7 +169,8 @@ class __$$_ArticleVMCopyWithImpl<$Res>
     Object? description = freezed,
     Object? url = null,
     Object? imageUrl = freezed,
-    Object? publishedAt = null,
+    Object? publishedAtShort = null,
+    Object? publishedAtFull = null,
     Object? content = null,
     Object? isFavourite = null,
   }) {
@@ -190,9 +199,13 @@ class __$$_ArticleVMCopyWithImpl<$Res>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      publishedAt: null == publishedAt
-          ? _value.publishedAt
-          : publishedAt // ignore: cast_nullable_to_non_nullable
+      publishedAtShort: null == publishedAtShort
+          ? _value.publishedAtShort
+          : publishedAtShort // ignore: cast_nullable_to_non_nullable
+              as String,
+      publishedAtFull: null == publishedAtFull
+          ? _value.publishedAtFull
+          : publishedAtFull // ignore: cast_nullable_to_non_nullable
               as String,
       content: null == content
           ? _value.content
@@ -216,7 +229,8 @@ class _$_ArticleVM implements _ArticleVM {
       required this.description,
       required this.url,
       required this.imageUrl,
-      required this.publishedAt,
+      required this.publishedAtShort,
+      required this.publishedAtFull,
       required this.content,
       required this.isFavourite});
 
@@ -233,7 +247,9 @@ class _$_ArticleVM implements _ArticleVM {
   @override
   final String? imageUrl;
   @override
-  final String publishedAt;
+  final String publishedAtShort;
+  @override
+  final String publishedAtFull;
   @override
   final String content;
   @override
@@ -241,7 +257,7 @@ class _$_ArticleVM implements _ArticleVM {
 
   @override
   String toString() {
-    return 'ArticleVM(source: $source, author: $author, title: $title, description: $description, url: $url, imageUrl: $imageUrl, publishedAt: $publishedAt, content: $content, isFavourite: $isFavourite)';
+    return 'ArticleVM(source: $source, author: $author, title: $title, description: $description, url: $url, imageUrl: $imageUrl, publishedAtShort: $publishedAtShort, publishedAtFull: $publishedAtFull, content: $content, isFavourite: $isFavourite)';
   }
 
   @override
@@ -257,16 +273,28 @@ class _$_ArticleVM implements _ArticleVM {
             (identical(other.url, url) || other.url == url) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
-            (identical(other.publishedAt, publishedAt) ||
-                other.publishedAt == publishedAt) &&
+            (identical(other.publishedAtShort, publishedAtShort) ||
+                other.publishedAtShort == publishedAtShort) &&
+            (identical(other.publishedAtFull, publishedAtFull) ||
+                other.publishedAtFull == publishedAtFull) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.isFavourite, isFavourite) ||
                 other.isFavourite == isFavourite));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, source, author, title,
-      description, url, imageUrl, publishedAt, content, isFavourite);
+  int get hashCode => Object.hash(
+      runtimeType,
+      source,
+      author,
+      title,
+      description,
+      url,
+      imageUrl,
+      publishedAtShort,
+      publishedAtFull,
+      content,
+      isFavourite);
 
   @JsonKey(ignore: true)
   @override
@@ -283,7 +311,8 @@ abstract class _ArticleVM implements ArticleVM {
       required final String? description,
       required final String url,
       required final String? imageUrl,
-      required final String publishedAt,
+      required final String publishedAtShort,
+      required final String publishedAtFull,
       required final String content,
       required final bool isFavourite}) = _$_ArticleVM;
 
@@ -300,7 +329,9 @@ abstract class _ArticleVM implements ArticleVM {
   @override
   String? get imageUrl;
   @override
-  String get publishedAt;
+  String get publishedAtShort;
+  @override
+  String get publishedAtFull;
   @override
   String get content;
   @override

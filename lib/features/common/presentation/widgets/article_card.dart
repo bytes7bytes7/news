@@ -20,7 +20,7 @@ class ArticleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final imageUrl = article.imageUrl;
+    final imageUrlOrNull = article.imageUrl;
 
     return InkWell(
       onTap: onTap,
@@ -72,14 +72,14 @@ class ArticleCard extends StatelessWidget {
                       height: 8,
                     ),
                     Text(
-                      article.publishedAt,
+                      article.publishedAtShort,
                       style: theme.textTheme.bodySmall,
                     ),
                   ],
                 ),
               ),
             ),
-            if (imageUrl != null) ...[
+            if (imageUrlOrNull != null) ...[
               const SizedBox(
                 width: 20,
               ),
@@ -91,7 +91,7 @@ class ArticleCard extends StatelessWidget {
                     image: DecorationImage(
                       fit: BoxFit.cover,
                       image: NetworkImage(
-                        imageUrl,
+                        imageUrlOrNull,
                       ),
                     ),
                   ),

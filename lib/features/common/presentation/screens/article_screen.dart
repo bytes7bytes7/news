@@ -1,83 +1,167 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../application/blocs/article/article_bloc.dart';
+
+const _appBarHeight = kToolbarHeight;
+const _snackBarDuration = Duration(seconds: 2);
 
 class ArticleScreen extends StatelessWidget {
   const ArticleScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    return BlocProvider(
+      create: (context) => ArticleBloc(),
+      child: const Scaffold(
+        appBar: _AppBar(),
+        body: _Body(),
+      ),
+    );
+  }
+}
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          color: Colors.black,
-          onPressed: () {
-            Navigator.of(context).pop();
+class _AppBar extends StatelessWidget implements PreferredSizeWidget {
+  const _AppBar();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(_appBarHeight);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () {},
+      ),
+      centerTitle: true,
+      title: const Text('Article'),
+      actions: [
+        BlocBuilder<ArticleBloc, ArticleState>(
+          builder: (context, state) {
+            final article = state.article;
+
+            if (article == null) {
+              return const SizedBox.shrink();
+            }
+
+            return IconButton(
+              icon: Icon(
+                article.isFavourite ? Icons.favorite : Icons.favorite_border,
+              ),
+              onPressed: () {},
+            );
           },
         ),
-        centerTitle: true,
-        title: Text('News'),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.favorite),
-            color: Colors.black,
-          ),
-        ],
-      ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Saturday 29 Nov 2019',
-                  style: theme.textTheme.labelMedium,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'How to redesign a 175-year-old newspaper',
-                  style: theme.textTheme.displaySmall,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                SizedBox.fromSize(
-                  size: const Size.fromHeight(200),
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                          'https://imgv3.fotor.com/images/'
-                          'blog-cover-image/part-blurry-image.jpg',
-                        ),
-                      ),
-                    ),
+      ],
+    );
+  }
+}
+
+class _Body extends StatelessWidget {
+  const _Body();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    final bloc = context.read<ArticleBloc>();
+
+    return BlocConsumer<ArticleBloc, ArticleState>(
+      listener: (context, state) {
+        if (state.hasError) {
+          scaffoldMessenger.showSnackBar(
+            SnackBar(
+              duration: _snackBarDuration,
+              content: Text(
+                state.error,
+              ),
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        if (state.isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        final article = state.article;
+
+        if (article == null) {
+          return RefreshIndicator(
+            onRefresh: () async => bloc.add(const ArticleEvent.load()),
+            child: ListView(
+              children: const [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 40,
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'All new Tesla Model 3 vehicles will now qualify for '
-                  'the full \$7,500 federal EV tax credit, according to a '
-                  'change in Tesla’s website.\r\nThe EV tax credits were '
-                  'mandated by Congress last August as part',
-                  style: theme.textTheme.bodyLarge,
+                  child: Center(
+                    child: Text('Article not found'),
+                  ),
                 ),
               ],
             ),
+          );
+        }
+
+        final imageUrlOrNull = article.imageUrl;
+
+        return RefreshIndicator(
+          onRefresh: () async => bloc.add(const ArticleEvent.load()),
+          child: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      article.publishedAtFull,
+                      style: theme.textTheme.labelMedium,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      article.title,
+                      style: theme.textTheme.displaySmall,
+                    ),
+                    if (imageUrlOrNull != null) ...[
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox.fromSize(
+                        size: const Size.fromHeight(200),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                imageUrlOrNull,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      article.content,
+                      style: theme.textTheme.bodyLarge,
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

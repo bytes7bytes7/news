@@ -13,7 +13,8 @@ class ArticleVM with _$ArticleVM {
     required String? description,
     required String url,
     required String? imageUrl,
-    required String publishedAt,
+    required String publishedAtShort,
+    required String publishedAtFull,
     required String content,
     required bool isFavourite,
   }) = _ArticleVM;

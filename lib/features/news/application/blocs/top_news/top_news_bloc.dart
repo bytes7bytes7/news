@@ -9,11 +9,11 @@ part 'top_news_state.dart';
 
 class TopNewsBloc extends Bloc<TopNewsEvent, TopNewsState> {
   TopNewsBloc() : super(const TopNewsState()) {
-    on<_LoadTopNewsEvent>(_load);
+    on<_LoadEvent>(_load);
   }
 
   Future<void> _load(
-    _LoadTopNewsEvent event,
+    _LoadEvent event,
     Emitter<TopNewsState> emit,
   ) async {
     emit(state.withLoading());
