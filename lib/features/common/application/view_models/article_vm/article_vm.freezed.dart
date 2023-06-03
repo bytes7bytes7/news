@@ -24,6 +24,7 @@ mixin _$ArticleVM {
   String? get imageUrl => throw _privateConstructorUsedError;
   String get publishedAt => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
+  bool get isFavourite => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ArticleVMCopyWith<ArticleVM> get copyWith =>
@@ -43,7 +44,8 @@ abstract class $ArticleVMCopyWith<$Res> {
       String url,
       String? imageUrl,
       String publishedAt,
-      String content});
+      String content,
+      bool isFavourite});
 
   $SourceVMCopyWith<$Res> get source;
 }
@@ -69,6 +71,7 @@ class _$ArticleVMCopyWithImpl<$Res, $Val extends ArticleVM>
     Object? imageUrl = freezed,
     Object? publishedAt = null,
     Object? content = null,
+    Object? isFavourite = null,
   }) {
     return _then(_value.copyWith(
       source: null == source
@@ -103,6 +106,10 @@ class _$ArticleVMCopyWithImpl<$Res, $Val extends ArticleVM>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
+      isFavourite: null == isFavourite
+          ? _value.isFavourite
+          : isFavourite // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -130,7 +137,8 @@ abstract class _$$_ArticleVMCopyWith<$Res> implements $ArticleVMCopyWith<$Res> {
       String url,
       String? imageUrl,
       String publishedAt,
-      String content});
+      String content,
+      bool isFavourite});
 
   @override
   $SourceVMCopyWith<$Res> get source;
@@ -155,6 +163,7 @@ class __$$_ArticleVMCopyWithImpl<$Res>
     Object? imageUrl = freezed,
     Object? publishedAt = null,
     Object? content = null,
+    Object? isFavourite = null,
   }) {
     return _then(_$_ArticleVM(
       source: null == source
@@ -189,6 +198,10 @@ class __$$_ArticleVMCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
+      isFavourite: null == isFavourite
+          ? _value.isFavourite
+          : isFavourite // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -204,7 +217,8 @@ class _$_ArticleVM implements _ArticleVM {
       required this.url,
       required this.imageUrl,
       required this.publishedAt,
-      required this.content});
+      required this.content,
+      required this.isFavourite});
 
   @override
   final SourceVM source;
@@ -222,10 +236,12 @@ class _$_ArticleVM implements _ArticleVM {
   final String publishedAt;
   @override
   final String content;
+  @override
+  final bool isFavourite;
 
   @override
   String toString() {
-    return 'ArticleVM(source: $source, author: $author, title: $title, description: $description, url: $url, imageUrl: $imageUrl, publishedAt: $publishedAt, content: $content)';
+    return 'ArticleVM(source: $source, author: $author, title: $title, description: $description, url: $url, imageUrl: $imageUrl, publishedAt: $publishedAt, content: $content, isFavourite: $isFavourite)';
   }
 
   @override
@@ -243,12 +259,14 @@ class _$_ArticleVM implements _ArticleVM {
                 other.imageUrl == imageUrl) &&
             (identical(other.publishedAt, publishedAt) ||
                 other.publishedAt == publishedAt) &&
-            (identical(other.content, content) || other.content == content));
+            (identical(other.content, content) || other.content == content) &&
+            (identical(other.isFavourite, isFavourite) ||
+                other.isFavourite == isFavourite));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, source, author, title,
-      description, url, imageUrl, publishedAt, content);
+      description, url, imageUrl, publishedAt, content, isFavourite);
 
   @JsonKey(ignore: true)
   @override
@@ -266,7 +284,8 @@ abstract class _ArticleVM implements ArticleVM {
       required final String url,
       required final String? imageUrl,
       required final String publishedAt,
-      required final String content}) = _$_ArticleVM;
+      required final String content,
+      required final bool isFavourite}) = _$_ArticleVM;
 
   @override
   SourceVM get source;
@@ -284,6 +303,8 @@ abstract class _ArticleVM implements ArticleVM {
   String get publishedAt;
   @override
   String get content;
+  @override
+  bool get isFavourite;
   @override
   @JsonKey(ignore: true)
   _$$_ArticleVMCopyWith<_$_ArticleVM> get copyWith =>

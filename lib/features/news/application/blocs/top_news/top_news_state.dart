@@ -4,10 +4,12 @@ class TopNewsState extends Equatable {
   const TopNewsState({
     this.isLoading = false,
     this.error = '',
+    this.articles = const [],
   });
 
   final bool isLoading;
   final String error;
+  final List<ArticleVM> articles;
 
   TopNewsState withLoading() => copyWith(isLoading: true);
 
@@ -21,10 +23,12 @@ class TopNewsState extends Equatable {
   TopNewsState copyWith({
     bool? isLoading,
     String? error = '',
+    List<ArticleVM>? articles,
   }) {
     return TopNewsState(
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
+      articles: articles ?? this.articles,
     );
   }
 
@@ -32,5 +36,6 @@ class TopNewsState extends Equatable {
   List<Object?> get props => [
         isLoading,
         error,
+        articles,
       ];
 }

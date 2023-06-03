@@ -15,5 +15,6 @@ class ArticleVM with _$ArticleVM {
     required String? imageUrl,
     required String publishedAt,
     required String content,
+    required bool isFavourite,
   }) = _ArticleVM;
 }

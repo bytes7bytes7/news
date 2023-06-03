@@ -1,49 +1,58 @@
 import 'package:flutter/material.dart';
 
-const _isFavourite = false;
+import '../../application/view_models/view_models.dart';
+
+const _height = 100.0;
 
 class NewsCard extends StatelessWidget {
   const NewsCard({
     super.key,
+    required this.article,
+    required this.onTap,
+    required this.onDoubleTap,
   });
+
+  final ArticleVM article;
+  final VoidCallback onTap;
+  final VoidCallback onDoubleTap;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
+    final imageUrl = article.imageUrl;
+
     return InkWell(
-      onTap: () {},
-      onDoubleTap: () {
-        print('double tap');
-      },
+      onTap: onTap,
+      onDoubleTap: onDoubleTap,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Row(
           children: [
             Expanded(
               child: SizedBox(
-                height: 100,
+                height: _height,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        if (_isFavourite)
+                        if (article.isFavourite)
                           const SizedBox.shrink()
                         else
                           Row(
-                            children: [
+                            children: const [
                               Icon(
                                 Icons.favorite,
                                 size: 12,
                               ),
-                              const SizedBox(
+                              SizedBox(
                                 width: 4,
                               ),
                             ],
                           ),
                         Text(
-                          'The New York Times',
+                          article.source.name,
                           style: theme.textTheme.labelSmall,
                         ),
                       ],
@@ -53,9 +62,7 @@ class NewsCard extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        'Facebook preparing new app to'
-                        ' maintain pressure on Snapchat'
-                        'asd assdasad s adsdaasd',
+                        article.title,
                         style: theme.textTheme.headlineSmall,
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
@@ -65,31 +72,32 @@ class NewsCard extends StatelessWidget {
                       height: 8,
                     ),
                     Text(
-                      '1m ago',
+                      article.publishedAt,
                       style: theme.textTheme.bodySmall,
                     ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              width: 20,
-            ),
-            SizedBox.square(
-              dimension: 100,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                      'https://imgv3.fotor.com/images/'
-                      'blog-cover-image/part-blurry-image.jpg',
+            if (imageUrl != null) ...[
+              const SizedBox(
+                width: 20,
+              ),
+              SizedBox.square(
+                dimension: _height,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                        imageUrl,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
+            ],
           ],
         ),
       ),

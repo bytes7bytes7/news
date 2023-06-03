@@ -28,8 +28,12 @@ class NewsScreen extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            NewsList(),
-            NewsList(),
+            NewsList(
+              articles: [],
+            ),
+            NewsList(
+              articles: [],
+            ),
           ],
         ),
       ),
