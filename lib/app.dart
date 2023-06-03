@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'top_new_screen.dart';
+import 'top_news_screen.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
