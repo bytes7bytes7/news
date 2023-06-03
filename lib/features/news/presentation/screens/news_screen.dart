@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'news_list.dart';
+import '../../../common/presentation/widgets/news_list.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class NewsScreen extends StatelessWidget {
+  const NewsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

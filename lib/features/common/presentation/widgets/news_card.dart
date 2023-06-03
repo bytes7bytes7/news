@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'article_screen.dart';
-
 const _isFavourite = false;
 
 class NewsCard extends StatelessWidget {
@@ -14,15 +12,7 @@ class NewsCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     return InkWell(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
-              return const ArticleScreen();
-            },
-          ),
-        );
-      },
+      onTap: () {},
       onDoubleTap: () {
         print('double tap');
       },
