@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -146,15 +147,20 @@ class _Body extends StatelessWidget {
                       ),
                       SizedBox.fromSize(
                         size: const Size.fromHeight(200),
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                imageUrlOrNull,
-                              ),
-                            ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: CachedNetworkImage(
+                            imageUrl: imageUrlOrNull,
+                            fit: BoxFit.cover,
+                            errorWidget: (context, url, error) {
+                              return ColoredBox(
+                                color: theme.unselectedWidgetColor,
+                                child: Icon(
+                                  Icons.warning,
+                                  color: theme.colorScheme.onBackground,
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ),
