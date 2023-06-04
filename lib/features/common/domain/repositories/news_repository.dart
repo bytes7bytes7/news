@@ -5,7 +5,13 @@ abstract class NewsRepository {
   const NewsRepository();
 
   Future<NewsResult> getTopNews({
-    required String category,
+    required String query,
+    required int page,
+    required int pageSize,
+  });
+
+  Future<NewsResult> getAllNews({
+    required String query,
     required int page,
     required int pageSize,
   });

@@ -57,12 +57,38 @@ class ProdNewsRepository implements NewsRepository {
 
   @override
   Future<NewsResult> getTopNews({
-    required String category,
+    required String query,
     required int page,
     required int pageSize,
   }) async {
     final response = await _newsDataProvider.getTopNews(
-      category: category,
+      query: query,
+      page: page,
+      pageSize: pageSize,
+    );
+
+    final toArticles = <ToArticle>[];
+    for (final e in response.articles) {
+      final id = _ArticleID.fromArticleResponse(e);
+      final saved = _saved[id];
+
+      toArticles.add(ToArticle(saved != null));
+    }
+
+    final result =
+        _mapster.map2(response, ToNewsResult(toArticles), To<NewsResult>());
+
+    return result;
+  }
+
+  @override
+  Future<NewsResult> getAllNews({
+    required String query,
+    required int page,
+    required int pageSize,
+  }) async {
+    final response = await _newsDataProvider.getAllNews(
+      query: query,
       page: page,
       pageSize: pageSize,
     );

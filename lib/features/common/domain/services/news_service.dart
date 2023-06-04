@@ -4,7 +4,7 @@ import '../exceptions/exceptions.dart';
 import '../repositories/news_repository.dart';
 import '../value_objects/news_result/news_result.dart';
 
-const _category = 'business';
+const _query = 'war';
 const _pageSize = 15;
 
 @singleton
@@ -20,7 +20,7 @@ class NewsService {
   }) async {
     try {
       final result = await _newsRepository.getTopNews(
-        category: _category,
+        query: _query,
         page: page,
         pageSize: _pageSize,
       );
@@ -30,6 +30,24 @@ class NewsService {
       return result;
     } catch (e) {
       throw const TopNewsNotLoaded();
+    }
+  }
+
+  Future<NewsResult> getAllNews({
+    required int page,
+  }) async {
+    try {
+      final result = await _newsRepository.getAllNews(
+        query: _query,
+        page: page,
+        pageSize: _pageSize,
+      );
+
+      await _newsRepository.cacheAll(result.articles);
+
+      return result;
+    } catch (e) {
+      throw const AllNewsNotLoaded();
     }
   }
 }
