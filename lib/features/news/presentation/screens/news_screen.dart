@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../../common/presentation/widgets/widgets.dart';
@@ -10,18 +9,11 @@ import '../../application/blocs/top_news/top_news_bloc.dart';
 const _snackBarDuration = Duration(seconds: 2);
 final _getIt = GetIt.instance;
 
-class NewsScreen extends HookWidget {
+class NewsScreen extends StatelessWidget {
   const NewsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final topNewsBloc = useMemoized(
-      () => _getIt.get<TopNewsBloc>()..add(const TopNewsEvent.load()),
-    );
-    final allNewsBloc = useMemoized(
-      () => _getIt.get<AllNewsBloc>()..add(const AllNewsEvent.load()),
-    );
-
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -44,10 +36,12 @@ class NewsScreen extends HookWidget {
         body: MultiBlocProvider(
           providers: [
             BlocProvider<TopNewsBloc>(
-              create: (context) => topNewsBloc,
+              create: (context) =>
+                  _getIt.get<TopNewsBloc>()..add(const TopNewsEvent.load()),
             ),
             BlocProvider<AllNewsBloc>(
-              create: (context) => allNewsBloc,
+              create: (context) =>
+                  _getIt.get<AllNewsBloc>()..add(const AllNewsEvent.load()),
             ),
           ],
           child: const _Body(),
