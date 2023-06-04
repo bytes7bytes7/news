@@ -7,29 +7,54 @@ class ArticleList extends StatelessWidget {
   const ArticleList({
     super.key,
     required this.articles,
+    required this.isLoadingMore,
+    required this.canLoadMore,
+    required this.loadMore,
+    required this.onRefresh,
   });
 
   final List<ArticleVM> articles;
+  final bool isLoadingMore;
+  final bool canLoadMore;
+  final VoidCallback loadMore;
+  final VoidCallback onRefresh;
 
   @override
   Widget build(BuildContext context) {
-    final itemCount = articles.length;
+    final itemCount = articles.length + 1;
 
     return SafeArea(
-      child: ListView.separated(
-        itemCount: itemCount,
-        separatorBuilder: (context, index) {
-          return const Divider();
-        },
-        itemBuilder: (context, index) {
-          final article = articles[index];
+      child: RefreshIndicator(
+        onRefresh: () async => onRefresh(),
+        child: ListView.separated(
+          itemCount: itemCount,
+          separatorBuilder: (context, index) {
+            return const Divider();
+          },
+          itemBuilder: (context, index) {
+            if (index == itemCount - 1) {
+              if (isLoadingMore) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
 
-          return ArticleCard(
-            article: article,
-            onTap: () {},
-            onDoubleTap: () {},
-          );
-        },
+              if (canLoadMore) {
+                loadMore();
+              }
+
+              return const SizedBox.shrink();
+            }
+
+            final article = articles[index];
+
+            return ArticleCard(
+              article: article,
+              onTap: () {},
+              onDoubleTap: () {},
+            );
+          },
+        ),
       ),
     );
   }

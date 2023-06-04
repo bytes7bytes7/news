@@ -25,7 +25,7 @@ class ArticleResponse {
   final String url;
   final String? urlToImage;
   final String publishedAt;
-  final String content;
+  final String? content;
 
   factory ArticleResponse.fromJson(JsonMap json) =>
       _$ArticleResponseFromJson(json);

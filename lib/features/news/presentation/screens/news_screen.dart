@@ -91,6 +91,10 @@ class _Body extends StatelessWidget {
 
             return ArticleList(
               articles: state.articles,
+              isLoadingMore: state.isLoadingMore,
+              canLoadMore: state.canLoadMore,
+              loadMore: () => topNewsBloc.add(const TopNewsEvent.loadMore()),
+              onRefresh: () => topNewsBloc.add(const TopNewsEvent.load()),
             );
           },
         ),
@@ -122,6 +126,10 @@ class _Body extends StatelessWidget {
 
             return ArticleList(
               articles: state.articles,
+              isLoadingMore: false,
+              canLoadMore: false,
+              loadMore: () {},
+              onRefresh: () {},
             );
           },
         ),

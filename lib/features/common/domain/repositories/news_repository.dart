@@ -5,7 +5,8 @@ abstract class NewsRepository {
   const NewsRepository();
 
   Future<NewsResult> getTopNews({
-    required String query,
+    required String category,
+    required int page,
     required int pageSize,
   });
 

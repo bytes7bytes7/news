@@ -15,7 +15,7 @@ ArticleResponse _$ArticleResponseFromJson(Map<String, dynamic> json) =>
       url: json['url'] as String,
       urlToImage: json['urlToImage'] as String?,
       publishedAt: json['publishedAt'] as String,
-      content: json['content'] as String,
+      content: json['content'] as String?,
     );
 
 Map<String, dynamic> _$ArticleResponseToJson(ArticleResponse instance) =>

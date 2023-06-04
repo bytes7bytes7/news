@@ -11,7 +11,8 @@ class NewsDataProvider {
   final Dio _dio;
 
   Future<NewsResponse> getTopNews({
-    required String query,
+    required String category,
+    required int page,
     required int pageSize,
   }) async {
     final response = await _dio.getUri(
@@ -21,7 +22,8 @@ class NewsDataProvider {
         path: Env.topNewsPath,
         queryParameters: <String, String>{
           'apiKey': Env.apiKey,
-          'q': query,
+          'category': category,
+          'page': '$page',
           'pageSize': '$pageSize',
         },
       ),

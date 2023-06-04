@@ -10,15 +10,24 @@ class EmptyArticlesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return RefreshIndicator(
       onRefresh: () async => onRefresh,
-      child: const Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: 40,
-        ),
-        child: Text(
-          'No articles',
-        ),
+      child: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 40,
+            ),
+            child: Center(
+              child: Text(
+                'No articles',
+                style: theme.textTheme.bodyLarge,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -23,7 +23,7 @@ class ArticleToArticleVMMapper extends OneSourceMapper<Article, ArticleVM> {
       imageUrl: _article.imageUrl,
       publishedAtShort: _beautifiedDateTimeProvider.short(_article.publishedAt),
       publishedAtFull: _beautifiedDateTimeProvider.full(_article.publishedAt),
-      content: _article.content,
+      content: _article.content ?? '',
       isFavourite: _article.isFavourite,
     );
   }

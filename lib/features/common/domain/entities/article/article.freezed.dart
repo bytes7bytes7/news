@@ -24,7 +24,7 @@ mixin _$Article {
   String? get imageUrl => throw _privateConstructorUsedError;
   DateTime get publishedAt => throw _privateConstructorUsedError;
   String get publishedAtUtc => throw _privateConstructorUsedError;
-  String get content => throw _privateConstructorUsedError;
+  String? get content => throw _privateConstructorUsedError;
   bool get isFavourite => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -45,7 +45,7 @@ abstract class $ArticleCopyWith<$Res> {
       String? imageUrl,
       DateTime publishedAt,
       String publishedAtUtc,
-      String content,
+      String? content,
       bool isFavourite});
 }
 
@@ -70,7 +70,7 @@ class _$ArticleCopyWithImpl<$Res, $Val extends Article>
     Object? imageUrl = freezed,
     Object? publishedAt = null,
     Object? publishedAtUtc = null,
-    Object? content = null,
+    Object? content = freezed,
     Object? isFavourite = null,
   }) {
     return _then(_value.copyWith(
@@ -106,10 +106,10 @@ class _$ArticleCopyWithImpl<$Res, $Val extends Article>
           ? _value.publishedAtUtc
           : publishedAtUtc // ignore: cast_nullable_to_non_nullable
               as String,
-      content: null == content
+      content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       isFavourite: null == isFavourite
           ? _value.isFavourite
           : isFavourite // ignore: cast_nullable_to_non_nullable
@@ -134,7 +134,7 @@ abstract class _$$_ArticleCopyWith<$Res> implements $ArticleCopyWith<$Res> {
       String? imageUrl,
       DateTime publishedAt,
       String publishedAtUtc,
-      String content,
+      String? content,
       bool isFavourite});
 }
 
@@ -156,7 +156,7 @@ class __$$_ArticleCopyWithImpl<$Res>
     Object? imageUrl = freezed,
     Object? publishedAt = null,
     Object? publishedAtUtc = null,
-    Object? content = null,
+    Object? content = freezed,
     Object? isFavourite = null,
   }) {
     return _then(_$_Article(
@@ -192,10 +192,10 @@ class __$$_ArticleCopyWithImpl<$Res>
           ? _value.publishedAtUtc
           : publishedAtUtc // ignore: cast_nullable_to_non_nullable
               as String,
-      content: null == content
+      content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       isFavourite: null == isFavourite
           ? _value.isFavourite
           : isFavourite // ignore: cast_nullable_to_non_nullable
@@ -236,7 +236,7 @@ class _$_Article implements _Article {
   @override
   final String publishedAtUtc;
   @override
-  final String content;
+  final String? content;
   @override
   final bool isFavourite;
 
@@ -299,7 +299,7 @@ abstract class _Article implements Article {
       required final String? imageUrl,
       required final DateTime publishedAt,
       required final String publishedAtUtc,
-      required final String content,
+      required final String? content,
       required final bool isFavourite}) = _$_Article;
 
   @override
@@ -319,7 +319,7 @@ abstract class _Article implements Article {
   @override
   String get publishedAtUtc;
   @override
-  String get content;
+  String? get content;
   @override
   bool get isFavourite;
   @override

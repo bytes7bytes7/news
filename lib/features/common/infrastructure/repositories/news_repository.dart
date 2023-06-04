@@ -57,11 +57,13 @@ class ProdNewsRepository implements NewsRepository {
 
   @override
   Future<NewsResult> getTopNews({
-    required String query,
+    required String category,
+    required int page,
     required int pageSize,
   }) async {
     final response = await _newsDataProvider.getTopNews(
-      query: query,
+      category: category,
+      page: page,
       pageSize: pageSize,
     );
 
