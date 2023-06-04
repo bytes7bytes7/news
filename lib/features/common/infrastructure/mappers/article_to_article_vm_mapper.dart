@@ -15,6 +15,7 @@ class ArticleToArticleVMMapper extends OneSourceMapper<Article, ArticleVM> {
   @override
   ArticleVM map() {
     return ArticleVM(
+      id: _article.id.value,
       sourceName: _article.sourceName,
       author: _article.author,
       title: _article.title,

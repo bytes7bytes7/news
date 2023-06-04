@@ -9,8 +9,14 @@ part 'article_state.dart';
 
 class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   ArticleBloc() : super(const ArticleState()) {
+    on<_SetIDEvent>(_setID);
     on<_LoadEvent>(_load);
   }
+
+  void _setID(
+    _SetIDEvent event,
+    Emitter<ArticleState> emit,
+  ) {}
 
   Future<void> _load(
     _LoadEvent event,

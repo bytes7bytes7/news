@@ -15,19 +15,19 @@ class NewsDataProvider {
     required int page,
     required int pageSize,
   }) async {
-    final response = await _dio.getUri(
-      Uri(
-        scheme: Env.scheme,
-        host: Env.host,
-        path: Env.topNewsPath,
-        queryParameters: <String, String>{
-          'apiKey': Env.apiKey,
-          'q': query,
-          'page': '$page',
-          'pageSize': '$pageSize',
-        },
-      ),
+    final uri = Uri(
+      scheme: Env.scheme,
+      host: Env.host,
+      path: Env.topNewsPath,
+      queryParameters: <String, String>{
+        'apiKey': Env.apiKey,
+        'q': query,
+        'page': '$page',
+        'pageSize': '$pageSize',
+      },
     );
+
+    final response = await _dio.getUri(uri);
 
     return NewsResponse.fromJson(response.data);
   }
@@ -48,8 +48,6 @@ class NewsDataProvider {
         'pageSize': '$pageSize',
       },
     );
-
-    print(uri);
 
     final response = await _dio.getUri(uri);
 

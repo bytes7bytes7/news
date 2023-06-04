@@ -2,6 +2,7 @@ import 'package:mapster/mapster.dart';
 
 import '../../domain/dto/to_article.dart';
 import '../../domain/entities/article/article.dart';
+import '../../domain/value_objects/article_id.dart';
 import '../dto/article_response/article_response.dart';
 
 class ArticleResponseToArticleMapper
@@ -11,6 +12,10 @@ class ArticleResponseToArticleMapper
   @override
   Article map() {
     return Article(
+      id: ArticleID(
+        sourceName: _response.source.name,
+        publishedAt: _response.publishedAt,
+      ),
       sourceName: _response.source.name,
       author: _response.author,
       title: _response.title,

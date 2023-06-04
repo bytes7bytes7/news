@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ArticleVM {
+  String get id => throw _privateConstructorUsedError;
   String get sourceName => throw _privateConstructorUsedError;
   String? get author => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
@@ -38,7 +39,8 @@ abstract class $ArticleVMCopyWith<$Res> {
       _$ArticleVMCopyWithImpl<$Res, ArticleVM>;
   @useResult
   $Res call(
-      {String sourceName,
+      {String id,
+      String sourceName,
       String? author,
       String title,
       String? description,
@@ -63,6 +65,7 @@ class _$ArticleVMCopyWithImpl<$Res, $Val extends ArticleVM>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? sourceName = null,
     Object? author = freezed,
     Object? title = null,
@@ -75,6 +78,10 @@ class _$ArticleVMCopyWithImpl<$Res, $Val extends ArticleVM>
     Object? isFavourite = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       sourceName: null == sourceName
           ? _value.sourceName
           : sourceName // ignore: cast_nullable_to_non_nullable
@@ -127,7 +134,8 @@ abstract class _$$_ArticleVMCopyWith<$Res> implements $ArticleVMCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String sourceName,
+      {String id,
+      String sourceName,
       String? author,
       String title,
       String? description,
@@ -150,6 +158,7 @@ class __$$_ArticleVMCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? sourceName = null,
     Object? author = freezed,
     Object? title = null,
@@ -162,6 +171,10 @@ class __$$_ArticleVMCopyWithImpl<$Res>
     Object? isFavourite = null,
   }) {
     return _then(_$_ArticleVM(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       sourceName: null == sourceName
           ? _value.sourceName
           : sourceName // ignore: cast_nullable_to_non_nullable
@@ -210,7 +223,8 @@ class __$$_ArticleVMCopyWithImpl<$Res>
 
 class _$_ArticleVM implements _ArticleVM {
   const _$_ArticleVM(
-      {required this.sourceName,
+      {required this.id,
+      required this.sourceName,
       required this.author,
       required this.title,
       required this.description,
@@ -221,6 +235,8 @@ class _$_ArticleVM implements _ArticleVM {
       required this.content,
       required this.isFavourite});
 
+  @override
+  final String id;
   @override
   final String sourceName;
   @override
@@ -244,7 +260,7 @@ class _$_ArticleVM implements _ArticleVM {
 
   @override
   String toString() {
-    return 'ArticleVM(sourceName: $sourceName, author: $author, title: $title, description: $description, url: $url, imageUrl: $imageUrl, publishedAtShort: $publishedAtShort, publishedAtFull: $publishedAtFull, content: $content, isFavourite: $isFavourite)';
+    return 'ArticleVM(id: $id, sourceName: $sourceName, author: $author, title: $title, description: $description, url: $url, imageUrl: $imageUrl, publishedAtShort: $publishedAtShort, publishedAtFull: $publishedAtFull, content: $content, isFavourite: $isFavourite)';
   }
 
   @override
@@ -252,6 +268,7 @@ class _$_ArticleVM implements _ArticleVM {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ArticleVM &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.sourceName, sourceName) ||
                 other.sourceName == sourceName) &&
             (identical(other.author, author) || other.author == author) &&
@@ -273,6 +290,7 @@ class _$_ArticleVM implements _ArticleVM {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      id,
       sourceName,
       author,
       title,
@@ -293,7 +311,8 @@ class _$_ArticleVM implements _ArticleVM {
 
 abstract class _ArticleVM implements ArticleVM {
   const factory _ArticleVM(
-      {required final String sourceName,
+      {required final String id,
+      required final String sourceName,
       required final String? author,
       required final String title,
       required final String? description,
@@ -304,6 +323,8 @@ abstract class _ArticleVM implements ArticleVM {
       required final String content,
       required final bool isFavourite}) = _$_ArticleVM;
 
+  @override
+  String get id;
   @override
   String get sourceName;
   @override

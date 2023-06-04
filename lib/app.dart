@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 import 'features/news/presentation/screens/news_screen.dart';
 import 'themes/themes.dart';
+import 'utils/typedef.dart';
+
+final _getIt = GetIt.instance;
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -9,6 +13,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: _getIt.get<NavigatorKey>(),
       title: 'News',
       theme: lightTheme,
       home: const NewsScreen(),

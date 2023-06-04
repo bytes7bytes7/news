@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../application/view_models/view_models.dart';
@@ -85,15 +86,20 @@ class ArticleCard extends StatelessWidget {
               ),
               SizedBox.square(
                 dimension: _height,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                        imageUrlOrNull,
-                      ),
-                    ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: CachedNetworkImage(
+                    imageUrl: imageUrlOrNull,
+                    fit: BoxFit.cover,
+                    errorWidget: (context, url, error) {
+                      return ColoredBox(
+                        color: theme.unselectedWidgetColor,
+                        child: Icon(
+                          Icons.warning,
+                          color: theme.colorScheme.onBackground,
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),

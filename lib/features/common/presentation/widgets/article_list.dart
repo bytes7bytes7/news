@@ -11,6 +11,8 @@ class ArticleList extends StatelessWidget {
     required this.canLoadMore,
     required this.loadMore,
     required this.onRefresh,
+    required this.onArticleTap,
+    required this.onArticleDoubleTap,
   });
 
   final List<ArticleVM> articles;
@@ -18,6 +20,8 @@ class ArticleList extends StatelessWidget {
   final bool canLoadMore;
   final VoidCallback loadMore;
   final VoidCallback onRefresh;
+  final void Function(String) onArticleTap;
+  final void Function(String) onArticleDoubleTap;
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +54,8 @@ class ArticleList extends StatelessWidget {
 
             return ArticleCard(
               article: article,
-              onTap: () {},
-              onDoubleTap: () {},
+              onTap: () => onArticleTap(article.id),
+              onDoubleTap: () => onArticleDoubleTap(article.id),
             );
           },
         ),

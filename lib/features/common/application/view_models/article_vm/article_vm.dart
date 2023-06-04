@@ -5,6 +5,7 @@ part 'article_vm.freezed.dart';
 @freezed
 class ArticleVM with _$ArticleVM {
   const factory ArticleVM({
+    required String id,
     required String sourceName,
     required String? author,
     required String title,

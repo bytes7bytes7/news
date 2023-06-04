@@ -16,7 +16,7 @@ class ProdBeautifiedDateTimeProvider implements BeautifiedDateTimeProvider {
     }
 
     if (diff.inDays > 1) {
-      return DateFormat.Md().format(dt);
+      return DateFormat('MMM d').format(dt);
     }
 
     return DateFormat.Hm().format(dt);

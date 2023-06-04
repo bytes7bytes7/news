@@ -95,6 +95,10 @@ class _Body extends StatelessWidget {
               canLoadMore: state.canLoadMore,
               loadMore: () => topNewsBloc.add(const TopNewsEvent.loadMore()),
               onRefresh: () => topNewsBloc.add(const TopNewsEvent.load()),
+              onArticleTap: (id) =>
+                  topNewsBloc.add(TopNewsEvent.pressArticle(id: id)),
+              onArticleDoubleTap: (id) =>
+                  topNewsBloc.add(TopNewsEvent.doublePressArticle(id: id)),
             );
           },
         ),
@@ -130,6 +134,10 @@ class _Body extends StatelessWidget {
               canLoadMore: state.canLoadMore,
               loadMore: () => allNewsBloc.add(const AllNewsEvent.loadMore()),
               onRefresh: () => allNewsBloc.add(const AllNewsEvent.load()),
+              onArticleTap: (id) =>
+                  allNewsBloc.add(AllNewsEvent.pressArticle(id: id)),
+              onArticleDoubleTap: (id) =>
+                  allNewsBloc.add(AllNewsEvent.doublePressArticle(id: id)),
             );
           },
         ),

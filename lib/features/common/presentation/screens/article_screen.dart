@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../application/blocs/article/article_bloc.dart';
 
 const _appBarHeight = kToolbarHeight;
 const _snackBarDuration = Duration(seconds: 2);
+final _getIt = GetIt.instance;
 
 class ArticleScreen extends StatelessWidget {
-  const ArticleScreen({super.key});
+  const ArticleScreen({
+    super.key,
+    required this.id,
+  });
+
+  final String id;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ArticleBloc(),
+      create: (context) => _getIt.get<ArticleBloc>()
+        ..add(ArticleEvent.setID(id: id))
+        ..add(const ArticleEvent.load()),
       child: const Scaffold(
         appBar: _AppBar(),
         body: _Body(),

@@ -1,6 +1,5 @@
 import 'dart:collection';
 
-import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mapster/mapster.dart';
 
@@ -8,39 +7,9 @@ import '../../domain/dto/to_article.dart';
 import '../../domain/dto/to_news_result.dart';
 import '../../domain/entities/article/article.dart';
 import '../../domain/repositories/news_repository.dart';
+import '../../domain/value_objects/article_id.dart';
 import '../../domain/value_objects/news_result/news_result.dart';
 import '../data_providers/news_data_provider.dart';
-import '../dto/article_response/article_response.dart';
-
-class _ArticleID extends Equatable {
-  const _ArticleID(
-    this.sourceName,
-    this.publishedAt,
-  );
-
-  factory _ArticleID.fromArticle(Article article) {
-    return _ArticleID(
-      article.sourceName,
-      article.publishedAtUtc,
-    );
-  }
-
-  factory _ArticleID.fromArticleResponse(ArticleResponse articleResponse) {
-    return _ArticleID(
-      articleResponse.source.name,
-      articleResponse.publishedAt,
-    );
-  }
-
-  final String sourceName;
-  final String publishedAt;
-
-  @override
-  List<Object?> get props => [
-        sourceName,
-        publishedAt,
-      ];
-}
 
 @Singleton(as: NewsRepository)
 class ProdNewsRepository implements NewsRepository {
@@ -52,8 +21,8 @@ class ProdNewsRepository implements NewsRepository {
   final NewsDataProvider _newsDataProvider;
   final Mapster _mapster;
 
-  final _cache = HashMap<_ArticleID, Article>();
-  final _saved = HashMap<_ArticleID, Article>();
+  final _cache = HashMap<ArticleID, Article>();
+  final _saved = HashMap<ArticleID, Article>();
 
   @override
   Future<NewsResult> getTopNews({
@@ -69,7 +38,8 @@ class ProdNewsRepository implements NewsRepository {
 
     final toArticles = <ToArticle>[];
     for (final e in response.articles) {
-      final id = _ArticleID.fromArticleResponse(e);
+      final id =
+          ArticleID(sourceName: e.source.name, publishedAt: e.publishedAt);
       final saved = _saved[id];
 
       toArticles.add(ToArticle(saved != null));
@@ -95,7 +65,8 @@ class ProdNewsRepository implements NewsRepository {
 
     final toArticles = <ToArticle>[];
     for (final e in response.articles) {
-      final id = _ArticleID.fromArticleResponse(e);
+      final id =
+          ArticleID(sourceName: e.source.name, publishedAt: e.publishedAt);
       final saved = _saved[id];
 
       toArticles.add(ToArticle(saved != null));
@@ -110,8 +81,7 @@ class ProdNewsRepository implements NewsRepository {
   @override
   Future<void> cacheAll(List<Article> articles) async {
     for (final article in articles) {
-      final id = _ArticleID.fromArticle(article);
-      _cache[id] = article;
+      _cache[article.id] = article;
     }
   }
 }

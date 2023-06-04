@@ -5,6 +5,7 @@ import 'package:mapster/mapster.dart';
 
 import '../../../../common/application/view_models/view_models.dart';
 import '../../../../common/domain/services/news_service.dart';
+import '../../coordinators/all_news_coordinator.dart';
 
 part 'all_news_event.dart';
 
@@ -14,13 +15,17 @@ part 'all_news_state.dart';
 class AllNewsBloc extends Bloc<AllNewsEvent, AllNewsState> {
   AllNewsBloc(
     this._newsService,
+    this._coordinator,
     this._mapster,
   ) : super(const AllNewsState()) {
     on<_LoadEvent>(_load);
     on<_LoadMoreEvent>(_loadMore);
+    on<_PressArticleEvent>(_pressArticle);
+    on<_DoublePressArticleEvent>(_doublePressArticle);
   }
 
   final NewsService _newsService;
+  final AllNewsCoordinator _coordinator;
   final Mapster _mapster;
 
   Future<void> _load(
@@ -104,4 +109,16 @@ class AllNewsBloc extends Bloc<AllNewsEvent, AllNewsState> {
       });
     }
   }
+
+  Future<void> _pressArticle(
+    _PressArticleEvent event,
+    Emitter<AllNewsState> emit,
+  ) async {
+    _coordinator.onArticlePressed(articleID: event.id);
+  }
+
+  Future<void> _doublePressArticle(
+    _DoublePressArticleEvent event,
+    Emitter<AllNewsState> emit,
+  ) async {}
 }

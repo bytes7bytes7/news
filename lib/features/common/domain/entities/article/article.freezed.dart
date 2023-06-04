@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Article {
+  ArticleID get id => throw _privateConstructorUsedError;
   String get sourceName => throw _privateConstructorUsedError;
   String? get author => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
@@ -37,7 +38,8 @@ abstract class $ArticleCopyWith<$Res> {
       _$ArticleCopyWithImpl<$Res, Article>;
   @useResult
   $Res call(
-      {String sourceName,
+      {ArticleID id,
+      String sourceName,
       String? author,
       String title,
       String? description,
@@ -62,6 +64,7 @@ class _$ArticleCopyWithImpl<$Res, $Val extends Article>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? sourceName = null,
     Object? author = freezed,
     Object? title = null,
@@ -74,6 +77,10 @@ class _$ArticleCopyWithImpl<$Res, $Val extends Article>
     Object? isFavourite = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as ArticleID,
       sourceName: null == sourceName
           ? _value.sourceName
           : sourceName // ignore: cast_nullable_to_non_nullable
@@ -126,7 +133,8 @@ abstract class _$$_ArticleCopyWith<$Res> implements $ArticleCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String sourceName,
+      {ArticleID id,
+      String sourceName,
       String? author,
       String title,
       String? description,
@@ -148,6 +156,7 @@ class __$$_ArticleCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? sourceName = null,
     Object? author = freezed,
     Object? title = null,
@@ -160,6 +169,10 @@ class __$$_ArticleCopyWithImpl<$Res>
     Object? isFavourite = null,
   }) {
     return _then(_$_Article(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as ArticleID,
       sourceName: null == sourceName
           ? _value.sourceName
           : sourceName // ignore: cast_nullable_to_non_nullable
@@ -208,7 +221,8 @@ class __$$_ArticleCopyWithImpl<$Res>
 
 class _$_Article implements _Article {
   const _$_Article(
-      {required this.sourceName,
+      {required this.id,
+      required this.sourceName,
       required this.author,
       required this.title,
       required this.description,
@@ -219,6 +233,8 @@ class _$_Article implements _Article {
       required this.content,
       required this.isFavourite});
 
+  @override
+  final ArticleID id;
   @override
   final String sourceName;
   @override
@@ -242,7 +258,7 @@ class _$_Article implements _Article {
 
   @override
   String toString() {
-    return 'Article(sourceName: $sourceName, author: $author, title: $title, description: $description, url: $url, imageUrl: $imageUrl, publishedAt: $publishedAt, publishedAtUtc: $publishedAtUtc, content: $content, isFavourite: $isFavourite)';
+    return 'Article(id: $id, sourceName: $sourceName, author: $author, title: $title, description: $description, url: $url, imageUrl: $imageUrl, publishedAt: $publishedAt, publishedAtUtc: $publishedAtUtc, content: $content, isFavourite: $isFavourite)';
   }
 
   @override
@@ -250,6 +266,7 @@ class _$_Article implements _Article {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Article &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.sourceName, sourceName) ||
                 other.sourceName == sourceName) &&
             (identical(other.author, author) || other.author == author) &&
@@ -271,6 +288,7 @@ class _$_Article implements _Article {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      id,
       sourceName,
       author,
       title,
@@ -291,7 +309,8 @@ class _$_Article implements _Article {
 
 abstract class _Article implements Article {
   const factory _Article(
-      {required final String sourceName,
+      {required final ArticleID id,
+      required final String sourceName,
       required final String? author,
       required final String title,
       required final String? description,
@@ -302,6 +321,8 @@ abstract class _Article implements Article {
       required final String? content,
       required final bool isFavourite}) = _$_Article;
 
+  @override
+  ArticleID get id;
   @override
   String get sourceName;
   @override
