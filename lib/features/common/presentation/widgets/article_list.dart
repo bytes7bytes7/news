@@ -29,7 +29,9 @@ class ArticleList extends StatelessWidget {
 
     return SafeArea(
       child: RefreshIndicator(
-        onRefresh: () async => onRefresh(),
+        onRefresh: () async {
+          onRefresh();
+        },
         child: ListView.separated(
           itemCount: itemCount,
           separatorBuilder: (context, index) {

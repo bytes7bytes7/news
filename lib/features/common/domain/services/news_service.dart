@@ -74,6 +74,12 @@ class NewsService {
         pageSize: _pageSize,
       );
 
+      for (final e in result.articles) {
+        if (!e.isFavourite) {
+          await _newsRepository.removeFromSaved(e.id);
+        }
+      }
+
       return result;
     } catch (e) {
       throw const FavouriteNewsNotLoaded();

@@ -174,12 +174,20 @@ class FavouriteNewsBloc extends Bloc<FavouriteNewsEvent, FavouriteNewsState> {
   ) {
     final articles = List.of(state.articles);
 
+    final updated = _mapster.map1(event.article, To<ArticleVM>());
+
     final index = articles.indexWhere((e) => e.id == event.article.id.value);
     if (index == -1) {
+      if (updated.isFavourite) {
+        emit(
+          state.copyWith(
+            articles: articles..add(updated),
+          ),
+        );
+      }
+
       return;
     }
-
-    final updated = _mapster.map1(event.article, To<ArticleVM>());
 
     if (updated.isFavourite) {
       emit(

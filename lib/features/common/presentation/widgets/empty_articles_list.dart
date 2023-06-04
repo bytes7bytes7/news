@@ -13,7 +13,7 @@ class EmptyArticlesList extends StatelessWidget {
     final theme = Theme.of(context);
 
     return RefreshIndicator(
-      onRefresh: () async => onRefresh,
+      onRefresh: () async => onRefresh(),
       child: ListView(
         children: [
           Padding(

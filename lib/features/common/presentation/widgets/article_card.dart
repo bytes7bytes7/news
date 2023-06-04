@@ -65,7 +65,7 @@ class ArticleCard extends StatelessWidget {
                       child: Text(
                         article.title,
                         style: theme.textTheme.headlineSmall,
-                        maxLines: 3,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),

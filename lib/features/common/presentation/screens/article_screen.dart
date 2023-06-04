@@ -145,8 +145,9 @@ class _Body extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      SizedBox.fromSize(
-                        size: const Size.fromHeight(200),
+                      SizedBox(
+                        height: 200,
+                        width: double.infinity,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: CachedNetworkImage(
