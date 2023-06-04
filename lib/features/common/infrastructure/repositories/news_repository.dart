@@ -97,6 +97,38 @@ class ProdNewsRepository implements NewsRepository {
   }
 
   @override
+  Future<NewsResult> getFavouriteNews({
+    required int pageSize,
+    ArticleID? lastArticleID,
+  }) async {
+    final ids = _box.keys;
+
+    var reachLast = lastArticleID == null;
+
+    final entities = <ArticleEntity>[];
+    for (final id in ids) {
+      if (reachLast) {
+        final entity = _box.get(id);
+
+        if (entity != null) {
+          entities.add(entity);
+        }
+      } else if (id == lastArticleID?.value) {
+        reachLast = true;
+      }
+
+      if (entities.length >= pageSize) {
+        break;
+      }
+    }
+
+    return NewsResult(
+      totalResults: ids.length,
+      articles: entities.map((e) => _mapster.map1(e, To<Article>())).toList(),
+    );
+  }
+
+  @override
   Future<void> cacheAll(List<Article> articles) async {
     for (final article in articles) {
       _cache[article.id] = article;

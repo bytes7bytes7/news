@@ -19,6 +19,11 @@ abstract class NewsRepository {
     required int pageSize,
   });
 
+  Future<NewsResult> getFavouriteNews({
+    required int pageSize,
+    ArticleID? lastArticleID,
+  });
+
   Future<void> cacheAll(List<Article> articles);
 
   Future<Article?> getByID(ArticleID id);

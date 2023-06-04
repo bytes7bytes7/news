@@ -65,6 +65,21 @@ class NewsService {
     }
   }
 
+  Future<NewsResult> getFavouriteNews({
+    required ArticleID? lastArticleID,
+  }) async {
+    try {
+      final result = await _newsRepository.getFavouriteNews(
+        lastArticleID: lastArticleID,
+        pageSize: _pageSize,
+      );
+
+      return result;
+    } catch (e) {
+      throw const FavouriteNewsNotLoaded();
+    }
+  }
+
   Future<Article?> getByID({
     required ArticleID id,
   }) async {
