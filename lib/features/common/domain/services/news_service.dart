@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:injectable/injectable.dart';
 
@@ -11,6 +12,7 @@ import '../value_objects/news_result/news_result.dart';
 
 const _query = 'war';
 const _pageSize = 15;
+const _maxPageSize = 100;
 
 @singleton
 class NewsService {
@@ -20,9 +22,47 @@ class NewsService {
 
   final NewsRepository _newsRepository;
 
-  final _eventController = StreamController<NewsEvent>.broadcast();
-
   Stream<NewsEvent> get events => _eventController.stream;
+
+  final _eventController = StreamController<NewsEvent>.broadcast();
+  var _pollingPageSize = _pageSize;
+  var _topNews = <Article>[];
+
+  @postConstruct
+  void init() {
+    Timer.periodic(const Duration(seconds: 5), (timer) async {
+      try {
+        final pageSize = min(_pollingPageSize, _maxPageSize);
+
+        final result = await _newsRepository.getTopNews(
+          query: _query,
+          page: 0,
+          pageSize: pageSize,
+        );
+
+       final topNews = List.of(_topNews);
+
+       for (final newArticle in result.articles) {
+         final index = topNews.indexWhere((e) => e.id == newArticle.id);
+
+         if (index == -1) {
+           continue;
+         }
+
+         final oldArticle = topNews[index];
+
+         if (oldArticle != newArticle) {
+           _eventController.add(NewsEvent.articleUpdated(newArticle));
+           topNews[index] = newArticle;
+         }
+       }
+
+       _topNews = topNews;
+      } catch (e) {
+        // ignore
+      }
+    });
+  }
 
   @disposeMethod
   void dispose() {
@@ -33,6 +73,8 @@ class NewsService {
     required int page,
   }) async {
     try {
+      _pollingPageSize = _pageSize * (page + 1);
+
       final result = await _newsRepository.getTopNews(
         query: _query,
         page: page,
@@ -40,6 +82,10 @@ class NewsService {
       );
 
       await _newsRepository.cacheAll(result.articles);
+
+      if ((page + 1) * _pageSize > _topNews.length) {
+        _topNews.addAll(result.articles);
+      }
 
       return result;
     } catch (e) {

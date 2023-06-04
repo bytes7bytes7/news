@@ -97,7 +97,7 @@ Future<_i1.GetIt> init(
     preResolve: true,
   );
   gh.singleton<_i13.NewsService>(
-    _i13.NewsService(gh<_i11.NewsRepository>()),
+    _i13.NewsService(gh<_i11.NewsRepository>())..init(),
     dispose: (i) => i.dispose(),
   );
   gh.singleton<_i14.TopNewsCoordinator>(
