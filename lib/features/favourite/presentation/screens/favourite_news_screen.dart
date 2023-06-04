@@ -14,9 +14,14 @@ class FavouriteNewsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => _getIt.get<FavouriteNewsBloc>(),
-      child: const Scaffold(
-        body: _Body(),
+      create: (context) =>
+          _getIt.get<FavouriteNewsBloc>()..add(const FavouriteNewsEvent.load()),
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('Favourites'),
+        ),
+        body: const _Body(),
       ),
     );
   }

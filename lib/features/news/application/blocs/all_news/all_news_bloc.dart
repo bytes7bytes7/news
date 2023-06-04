@@ -44,7 +44,6 @@ class AllNewsBloc extends Bloc<AllNewsEvent, AllNewsState> {
   StreamSubscription? _newsSub;
 
   @override
-  @disposeMethod
   Future<void> close() async {
     await _newsSub?.cancel();
 

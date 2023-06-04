@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import 'features/news/presentation/screens/news_screen.dart';
+import 'main/main.dart';
 import 'themes/themes.dart';
 import 'utils/typedef.dart';
 
@@ -16,7 +16,7 @@ class App extends StatelessWidget {
       navigatorKey: _getIt.get<NavigatorKey>(),
       title: 'News',
       theme: lightTheme,
-      home: const NewsScreen(),
+      home: const HomeScreen(),
     );
   }
 }

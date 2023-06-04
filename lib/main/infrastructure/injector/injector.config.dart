@@ -110,35 +110,26 @@ Future<_i1.GetIt> init(
       _i20.CommonMapsterRegistrar(gh<_i9.Mapster>())..register());
   gh.singleton<_i21.FavouriteNewsCoordinator>(_i22.ProdFavouriteNewsCoordinator(
       gh<_i7.GlobalKey<_i7.NavigatorState>>()));
-  gh.singleton<_i23.TopNewsBloc>(
-    _i23.TopNewsBloc(
-      gh<_i24.NewsService>(),
-      gh<_i14.TopNewsCoordinator>(),
-      gh<_i9.Mapster>(),
-    ),
-    dispose: (i) => i.close(),
-  );
-  gh.singleton<_i25.AllNewsBloc>(
-    _i25.AllNewsBloc(
-      gh<_i13.NewsService>(),
-      gh<_i16.AllNewsCoordinator>(),
-      gh<_i9.Mapster>(),
-    ),
-    dispose: (i) => i.close(),
-  );
+  gh.singleton<_i23.TopNewsBloc>(_i23.TopNewsBloc(
+    gh<_i24.NewsService>(),
+    gh<_i14.TopNewsCoordinator>(),
+    gh<_i9.Mapster>(),
+  ));
+  gh.singleton<_i25.AllNewsBloc>(_i25.AllNewsBloc(
+    gh<_i13.NewsService>(),
+    gh<_i16.AllNewsCoordinator>(),
+    gh<_i9.Mapster>(),
+  ));
   gh.factory<_i26.ArticleBloc>(() => _i26.ArticleBloc(
         gh<_i13.NewsService>(),
         gh<_i18.ArticleCoordinator>(),
         gh<_i9.Mapster>(),
       ));
-  gh.singleton<_i27.FavouriteNewsBloc>(
-    _i27.FavouriteNewsBloc(
-      gh<_i28.NewsService>(),
-      gh<_i21.FavouriteNewsCoordinator>(),
-      gh<_i9.Mapster>(),
-    ),
-    dispose: (i) => i.close(),
-  );
+  gh.singleton<_i27.FavouriteNewsBloc>(_i27.FavouriteNewsBloc(
+    gh<_i28.NewsService>(),
+    gh<_i21.FavouriteNewsCoordinator>(),
+    gh<_i9.Mapster>(),
+  ));
   return getIt;
 }
 
