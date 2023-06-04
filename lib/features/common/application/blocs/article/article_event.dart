@@ -7,6 +7,8 @@ abstract class ArticleEvent extends Equatable {
 
   const factory ArticleEvent.load() = _LoadEvent;
 
+  const factory ArticleEvent.pressBack() = _PressBackEvent;
+
   const factory ArticleEvent.pressFavourite() = _PressFavouriteEvent;
 
   @override
@@ -21,6 +23,10 @@ class _SetIDEvent extends ArticleEvent {
 
 class _LoadEvent extends ArticleEvent {
   const _LoadEvent();
+}
+
+class _PressBackEvent extends ArticleEvent {
+  const _PressBackEvent();
 }
 
 class _PressFavouriteEvent extends ArticleEvent {

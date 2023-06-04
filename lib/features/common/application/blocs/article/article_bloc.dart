@@ -5,6 +5,7 @@ import 'package:mapster/mapster.dart';
 
 import '../../../domain/services/news_service.dart';
 import '../../../domain/value_objects/article_id.dart';
+import '../../coordinators/article_coordinator.dart';
 import '../../view_models/article_vm/article_vm.dart';
 
 part 'article_event.dart';
@@ -15,14 +16,17 @@ part 'article_state.dart';
 class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   ArticleBloc(
     this._newsService,
+    this._coordinator,
     this._mapster,
   ) : super(const ArticleState()) {
     on<_SetIDEvent>(_setID);
     on<_LoadEvent>(_load);
+    on<_PressBackEvent>(_pressBack);
     on<_PressFavouriteEvent>(_pressFavourite);
   }
 
   final NewsService _newsService;
+  final ArticleCoordinator _coordinator;
   final Mapster _mapster;
 
   void _setID(
@@ -73,6 +77,13 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
       emit(state.withError('Error'));
       emit(state.copyWith());
     }
+  }
+
+  void _pressBack(
+    _PressBackEvent event,
+    Emitter<ArticleState> emit,
+  ) {
+    _coordinator.onBackPressed();
   }
 
   Future<void> _pressFavourite(

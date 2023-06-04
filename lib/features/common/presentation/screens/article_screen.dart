@@ -43,7 +43,7 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
-        onPressed: () {},
+        onPressed: () => bloc.add(const ArticleEvent.pressBack()),
       ),
       centerTitle: true,
       title: const Text('Article'),

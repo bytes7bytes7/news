@@ -17,11 +17,13 @@ import 'package:mapster/mapster.dart' as _i9;
 
 import '../../../features/common/application/application.dart' as _i3;
 import '../../../features/common/application/blocs/article/article_bloc.dart'
+    as _i24;
+import '../../../features/common/application/coordinators/article_coordinator.dart'
     as _i18;
 import '../../../features/common/domain/repositories/news_repository.dart'
     as _i11;
 import '../../../features/common/domain/services/news_service.dart' as _i13;
-import '../../../features/common/domain/services/services.dart' as _i21;
+import '../../../features/common/domain/services/services.dart' as _i22;
 import '../../../features/common/infrastructure/data_providers/news_data_provider.dart'
     as _i10;
 import '../../../features/common/infrastructure/providers/beautified_date_time_provider.dart'
@@ -31,21 +33,22 @@ import '../../../features/common/infrastructure/repositories/news_repository.dar
 import '../../../features/common/infrastructure/third_party/hive_registrar.dart'
     as _i5;
 import '../../../features/common/infrastructure/third_party/mapster_registrar.dart'
-    as _i19;
-import '../../../features/news/application/blocs/all_news/all_news_bloc.dart'
-    as _i22;
-import '../../../features/news/application/blocs/top_news/top_news_bloc.dart'
     as _i20;
+import '../../../features/news/application/blocs/all_news/all_news_bloc.dart'
+    as _i23;
+import '../../../features/news/application/blocs/top_news/top_news_bloc.dart'
+    as _i21;
 import '../../../features/news/application/coordinators/all_news_coordinator.dart'
     as _i16;
 import '../../../features/news/application/coordinators/top_news_coordinator.dart'
     as _i14;
 import '../coordinators/all_news_coordinator.dart' as _i17;
+import '../coordinators/article_coordinator.dart' as _i19;
 import '../coordinators/top_news_coordinator.dart' as _i15;
-import '../router.dart' as _i23;
-import '../third_party/dio_module.dart' as _i24;
+import '../router.dart' as _i25;
+import '../third_party/dio_module.dart' as _i26;
 import '../third_party/hive_module.dart' as _i8;
-import '../third_party/mapster_module.dart' as _i25;
+import '../third_party/mapster_module.dart' as _i27;
 
 // ignore_for_file: unnecessary_lambdas
 // ignore_for_file: lines_longer_than_80_chars
@@ -92,27 +95,30 @@ Future<_i1.GetIt> init(
       _i15.ProdTopNewsCoordinator(gh<_i7.GlobalKey<_i7.NavigatorState>>()));
   gh.singleton<_i16.AllNewsCoordinator>(
       _i17.ProdAllNewsCoordinator(gh<_i7.GlobalKey<_i7.NavigatorState>>()));
-  gh.factory<_i18.ArticleBloc>(() => _i18.ArticleBloc(
-        gh<_i13.NewsService>(),
-        gh<_i9.Mapster>(),
-      ));
-  gh.singleton<_i19.CommonMapsterRegistrar>(
-      _i19.CommonMapsterRegistrar(gh<_i9.Mapster>())..register());
-  gh.factory<_i20.TopNewsBloc>(() => _i20.TopNewsBloc(
-        gh<_i21.NewsService>(),
+  gh.singleton<_i18.ArticleCoordinator>(
+      _i19.ProdArticleCoordinator(gh<_i7.GlobalKey<_i7.NavigatorState>>()));
+  gh.singleton<_i20.CommonMapsterRegistrar>(
+      _i20.CommonMapsterRegistrar(gh<_i9.Mapster>())..register());
+  gh.factory<_i21.TopNewsBloc>(() => _i21.TopNewsBloc(
+        gh<_i22.NewsService>(),
         gh<_i14.TopNewsCoordinator>(),
         gh<_i9.Mapster>(),
       ));
-  gh.factory<_i22.AllNewsBloc>(() => _i22.AllNewsBloc(
+  gh.factory<_i23.AllNewsBloc>(() => _i23.AllNewsBloc(
         gh<_i13.NewsService>(),
         gh<_i16.AllNewsCoordinator>(),
+        gh<_i9.Mapster>(),
+      ));
+  gh.factory<_i24.ArticleBloc>(() => _i24.ArticleBloc(
+        gh<_i13.NewsService>(),
+        gh<_i18.ArticleCoordinator>(),
         gh<_i9.Mapster>(),
       ));
   return getIt;
 }
 
-class _$RouterModule extends _i23.RouterModule {}
+class _$RouterModule extends _i25.RouterModule {}
 
-class _$DioModule extends _i24.DioModule {}
+class _$DioModule extends _i26.DioModule {}
 
-class _$MapsterModule extends _i25.MapsterModule {}
+class _$MapsterModule extends _i27.MapsterModule {}
