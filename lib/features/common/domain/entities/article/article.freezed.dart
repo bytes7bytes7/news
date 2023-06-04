@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'article_vm.dart';
+part of 'article.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,27 +15,25 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$ArticleVM {
+mixin _$Article {
   String get sourceName => throw _privateConstructorUsedError;
   String? get author => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
-  String get publishedAtShort => throw _privateConstructorUsedError;
-  String get publishedAtFull => throw _privateConstructorUsedError;
+  DateTime get publishedAt => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   bool get isFavourite => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ArticleVMCopyWith<ArticleVM> get copyWith =>
-      throw _privateConstructorUsedError;
+  $ArticleCopyWith<Article> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ArticleVMCopyWith<$Res> {
-  factory $ArticleVMCopyWith(ArticleVM value, $Res Function(ArticleVM) then) =
-      _$ArticleVMCopyWithImpl<$Res, ArticleVM>;
+abstract class $ArticleCopyWith<$Res> {
+  factory $ArticleCopyWith(Article value, $Res Function(Article) then) =
+      _$ArticleCopyWithImpl<$Res, Article>;
   @useResult
   $Res call(
       {String sourceName,
@@ -44,16 +42,15 @@ abstract class $ArticleVMCopyWith<$Res> {
       String? description,
       String url,
       String? imageUrl,
-      String publishedAtShort,
-      String publishedAtFull,
+      DateTime publishedAt,
       String content,
       bool isFavourite});
 }
 
 /// @nodoc
-class _$ArticleVMCopyWithImpl<$Res, $Val extends ArticleVM>
-    implements $ArticleVMCopyWith<$Res> {
-  _$ArticleVMCopyWithImpl(this._value, this._then);
+class _$ArticleCopyWithImpl<$Res, $Val extends Article>
+    implements $ArticleCopyWith<$Res> {
+  _$ArticleCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -69,8 +66,7 @@ class _$ArticleVMCopyWithImpl<$Res, $Val extends ArticleVM>
     Object? description = freezed,
     Object? url = null,
     Object? imageUrl = freezed,
-    Object? publishedAtShort = null,
-    Object? publishedAtFull = null,
+    Object? publishedAt = null,
     Object? content = null,
     Object? isFavourite = null,
   }) {
@@ -99,14 +95,10 @@ class _$ArticleVMCopyWithImpl<$Res, $Val extends ArticleVM>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      publishedAtShort: null == publishedAtShort
-          ? _value.publishedAtShort
-          : publishedAtShort // ignore: cast_nullable_to_non_nullable
-              as String,
-      publishedAtFull: null == publishedAtFull
-          ? _value.publishedAtFull
-          : publishedAtFull // ignore: cast_nullable_to_non_nullable
-              as String,
+      publishedAt: null == publishedAt
+          ? _value.publishedAt
+          : publishedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
@@ -120,10 +112,10 @@ class _$ArticleVMCopyWithImpl<$Res, $Val extends ArticleVM>
 }
 
 /// @nodoc
-abstract class _$$_ArticleVMCopyWith<$Res> implements $ArticleVMCopyWith<$Res> {
-  factory _$$_ArticleVMCopyWith(
-          _$_ArticleVM value, $Res Function(_$_ArticleVM) then) =
-      __$$_ArticleVMCopyWithImpl<$Res>;
+abstract class _$$_ArticleCopyWith<$Res> implements $ArticleCopyWith<$Res> {
+  factory _$$_ArticleCopyWith(
+          _$_Article value, $Res Function(_$_Article) then) =
+      __$$_ArticleCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -133,18 +125,16 @@ abstract class _$$_ArticleVMCopyWith<$Res> implements $ArticleVMCopyWith<$Res> {
       String? description,
       String url,
       String? imageUrl,
-      String publishedAtShort,
-      String publishedAtFull,
+      DateTime publishedAt,
       String content,
       bool isFavourite});
 }
 
 /// @nodoc
-class __$$_ArticleVMCopyWithImpl<$Res>
-    extends _$ArticleVMCopyWithImpl<$Res, _$_ArticleVM>
-    implements _$$_ArticleVMCopyWith<$Res> {
-  __$$_ArticleVMCopyWithImpl(
-      _$_ArticleVM _value, $Res Function(_$_ArticleVM) _then)
+class __$$_ArticleCopyWithImpl<$Res>
+    extends _$ArticleCopyWithImpl<$Res, _$_Article>
+    implements _$$_ArticleCopyWith<$Res> {
+  __$$_ArticleCopyWithImpl(_$_Article _value, $Res Function(_$_Article) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -156,12 +146,11 @@ class __$$_ArticleVMCopyWithImpl<$Res>
     Object? description = freezed,
     Object? url = null,
     Object? imageUrl = freezed,
-    Object? publishedAtShort = null,
-    Object? publishedAtFull = null,
+    Object? publishedAt = null,
     Object? content = null,
     Object? isFavourite = null,
   }) {
-    return _then(_$_ArticleVM(
+    return _then(_$_Article(
       sourceName: null == sourceName
           ? _value.sourceName
           : sourceName // ignore: cast_nullable_to_non_nullable
@@ -186,14 +175,10 @@ class __$$_ArticleVMCopyWithImpl<$Res>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      publishedAtShort: null == publishedAtShort
-          ? _value.publishedAtShort
-          : publishedAtShort // ignore: cast_nullable_to_non_nullable
-              as String,
-      publishedAtFull: null == publishedAtFull
-          ? _value.publishedAtFull
-          : publishedAtFull // ignore: cast_nullable_to_non_nullable
-              as String,
+      publishedAt: null == publishedAt
+          ? _value.publishedAt
+          : publishedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
@@ -208,16 +193,15 @@ class __$$_ArticleVMCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ArticleVM implements _ArticleVM {
-  const _$_ArticleVM(
+class _$_Article implements _Article {
+  const _$_Article(
       {required this.sourceName,
       required this.author,
       required this.title,
       required this.description,
       required this.url,
       required this.imageUrl,
-      required this.publishedAtShort,
-      required this.publishedAtFull,
+      required this.publishedAt,
       required this.content,
       required this.isFavourite});
 
@@ -234,9 +218,7 @@ class _$_ArticleVM implements _ArticleVM {
   @override
   final String? imageUrl;
   @override
-  final String publishedAtShort;
-  @override
-  final String publishedAtFull;
+  final DateTime publishedAt;
   @override
   final String content;
   @override
@@ -244,14 +226,14 @@ class _$_ArticleVM implements _ArticleVM {
 
   @override
   String toString() {
-    return 'ArticleVM(sourceName: $sourceName, author: $author, title: $title, description: $description, url: $url, imageUrl: $imageUrl, publishedAtShort: $publishedAtShort, publishedAtFull: $publishedAtFull, content: $content, isFavourite: $isFavourite)';
+    return 'Article(sourceName: $sourceName, author: $author, title: $title, description: $description, url: $url, imageUrl: $imageUrl, publishedAt: $publishedAt, content: $content, isFavourite: $isFavourite)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ArticleVM &&
+            other is _$_Article &&
             (identical(other.sourceName, sourceName) ||
                 other.sourceName == sourceName) &&
             (identical(other.author, author) || other.author == author) &&
@@ -261,48 +243,35 @@ class _$_ArticleVM implements _ArticleVM {
             (identical(other.url, url) || other.url == url) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
-            (identical(other.publishedAtShort, publishedAtShort) ||
-                other.publishedAtShort == publishedAtShort) &&
-            (identical(other.publishedAtFull, publishedAtFull) ||
-                other.publishedAtFull == publishedAtFull) &&
+            (identical(other.publishedAt, publishedAt) ||
+                other.publishedAt == publishedAt) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.isFavourite, isFavourite) ||
                 other.isFavourite == isFavourite));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      sourceName,
-      author,
-      title,
-      description,
-      url,
-      imageUrl,
-      publishedAtShort,
-      publishedAtFull,
-      content,
-      isFavourite);
+  int get hashCode => Object.hash(runtimeType, sourceName, author, title,
+      description, url, imageUrl, publishedAt, content, isFavourite);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ArticleVMCopyWith<_$_ArticleVM> get copyWith =>
-      __$$_ArticleVMCopyWithImpl<_$_ArticleVM>(this, _$identity);
+  _$$_ArticleCopyWith<_$_Article> get copyWith =>
+      __$$_ArticleCopyWithImpl<_$_Article>(this, _$identity);
 }
 
-abstract class _ArticleVM implements ArticleVM {
-  const factory _ArticleVM(
+abstract class _Article implements Article {
+  const factory _Article(
       {required final String sourceName,
       required final String? author,
       required final String title,
       required final String? description,
       required final String url,
       required final String? imageUrl,
-      required final String publishedAtShort,
-      required final String publishedAtFull,
+      required final DateTime publishedAt,
       required final String content,
-      required final bool isFavourite}) = _$_ArticleVM;
+      required final bool isFavourite}) = _$_Article;
 
   @override
   String get sourceName;
@@ -317,15 +286,13 @@ abstract class _ArticleVM implements ArticleVM {
   @override
   String? get imageUrl;
   @override
-  String get publishedAtShort;
-  @override
-  String get publishedAtFull;
+  DateTime get publishedAt;
   @override
   String get content;
   @override
   bool get isFavourite;
   @override
   @JsonKey(ignore: true)
-  _$$_ArticleVMCopyWith<_$_ArticleVM> get copyWith =>
+  _$$_ArticleCopyWith<_$_Article> get copyWith =>
       throw _privateConstructorUsedError;
 }

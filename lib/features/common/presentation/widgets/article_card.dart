@@ -52,7 +52,7 @@ class ArticleCard extends StatelessWidget {
                             ],
                           ),
                         Text(
-                          article.source.name,
+                          article.sourceName,
                           style: theme.textTheme.labelSmall,
                         ),
                       ],

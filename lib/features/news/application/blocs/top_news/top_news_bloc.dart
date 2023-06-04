@@ -18,6 +18,11 @@ class TopNewsBloc extends Bloc<TopNewsEvent, TopNewsState> {
   ) async {
     emit(state.withLoading());
 
-    emit(state.withoutLoading());
+    try {
+      emit(state.copyWith());
+    } catch (e) {
+      emit(state.withError('Error'));
+      emit(state.copyWith());
+    }
   }
 }
