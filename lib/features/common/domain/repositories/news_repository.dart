@@ -20,4 +20,8 @@ abstract class NewsRepository {
   Future<void> cacheAll(List<Article> articles);
 
   Future<Article?> getByID(ArticleID id);
+
+  Future<void> save(ArticleID id);
+
+  Future<void> removeFromSaved(ArticleID id);
 }

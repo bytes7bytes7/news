@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:mapster/mapster.dart';
 
 import '../../../domain/services/news_service.dart';
+import '../../../domain/value_objects/article_id.dart';
 import '../../view_models/article_vm/article_vm.dart';
 
 part 'article_event.dart';
@@ -45,7 +46,8 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
     emit(state.withLoading());
 
     try {
-      final articleOrNull = await _newsService.getByID(id: id);
+      final articleOrNull =
+          await _newsService.getByID(id: ArticleID.fromString(id));
 
       if (articleOrNull == null) {
         emit(

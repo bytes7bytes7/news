@@ -5,6 +5,7 @@ import 'package:mapster/mapster.dart';
 
 import '../../../../common/application/view_models/view_models.dart';
 import '../../../../common/domain/services/news_service.dart';
+import '../../../../common/domain/value_objects/article_id.dart';
 import '../../coordinators/all_news_coordinator.dart';
 
 part 'all_news_event.dart';
@@ -120,5 +121,36 @@ class AllNewsBloc extends Bloc<AllNewsEvent, AllNewsState> {
   Future<void> _doublePressArticle(
     _DoublePressArticleEvent event,
     Emitter<AllNewsState> emit,
-  ) async {}
+  ) async {
+    try {
+      final articles = List.of(state.articles);
+
+      final index = articles.indexWhere((e) => e.id == event.id);
+      if (index == -1) {
+        return;
+      }
+
+      final article = articles[index];
+
+      if (article.isFavourite) {
+        await _newsService.removeFromSaved(ArticleID.fromString(event.id));
+      } else {
+        await _newsService.save(ArticleID.fromString(event.id));
+      }
+
+      emit(
+        state.copyWith(
+          articles: articles
+            ..[index] = article.copyWith(
+              isFavourite: !article.isFavourite,
+            ),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.withError('An error occurs during modifying favourite articles'),
+      );
+      emit(state.copyWith());
+    }
+  }
 }

@@ -54,14 +54,30 @@ class NewsService {
   }
 
   Future<Article?> getByID({
-    required String id,
+    required ArticleID id,
   }) async {
     try {
-      final result = await _newsRepository.getByID(ArticleID.fromString(id));
+      final result = await _newsRepository.getByID(id);
 
       return result;
     } catch (e) {
       throw const ArticleNotFound();
+    }
+  }
+
+  Future<void> save(ArticleID id) async {
+    try {
+      await _newsRepository.save(id);
+    } catch (e) {
+      throw const ArticleSaveError();
+    }
+  }
+
+  Future<void> removeFromSaved(ArticleID id) async {
+    try {
+      await _newsRepository.removeFromSaved(id);
+    } catch (e) {
+      throw const ArticleSaveError();
     }
   }
 }

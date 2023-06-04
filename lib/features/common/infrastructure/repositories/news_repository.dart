@@ -97,4 +97,20 @@ class ProdNewsRepository implements NewsRepository {
 
     return saved;
   }
+
+  @override
+  Future<void> save(ArticleID id) async {
+    final article = _cache[id];
+
+    if (article == null) {
+      throw Exception('Article not found');
+    }
+
+    _saved[id] = article;
+  }
+
+  @override
+  Future<void> removeFromSaved(ArticleID id) async {
+    _saved.remove(id);
+  }
 }
