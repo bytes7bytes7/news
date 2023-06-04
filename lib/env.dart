@@ -7,5 +7,5 @@ class Env {
 
   static const allNewsPath = '/v2/everything';
 
-  static const apiKey = 'e15a34626d454f56aa7a841495078a06';
+  static const apiKey = '02744eeac7f94fa49aa648bfa40de262';
 }
