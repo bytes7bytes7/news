@@ -5,6 +5,8 @@ import '../value_objects/news_result/news_result.dart';
 abstract class NewsRepository {
   const NewsRepository();
 
+  Future<void> init();
+
   Future<NewsResult> getTopNews({
     required String query,
     required int page,

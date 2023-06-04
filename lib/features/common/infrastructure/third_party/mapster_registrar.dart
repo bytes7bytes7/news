@@ -31,6 +31,8 @@ class CommonMapsterRegistrar {
         MapperMeta.two(
           (input) => NewsResponseToNewsResultMapper(input, _mapster),
         ),
-      );
+      )
+      ..register(MapperMeta.one(ArticleEntityToArticleMapper.new))
+      ..register(MapperMeta.one(ArticleToArticleEntityMapper.new));
   }
 }
