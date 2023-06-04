@@ -12,6 +12,7 @@ class Article with _$Article {
     required String url,
     required String? imageUrl,
     required DateTime publishedAt,
+    required String publishedAtUtc,
     required String content,
     required bool isFavourite,
   }) = _Article;

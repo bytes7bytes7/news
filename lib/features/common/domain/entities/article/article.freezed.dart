@@ -23,6 +23,7 @@ mixin _$Article {
   String get url => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   DateTime get publishedAt => throw _privateConstructorUsedError;
+  String get publishedAtUtc => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   bool get isFavourite => throw _privateConstructorUsedError;
 
@@ -43,6 +44,7 @@ abstract class $ArticleCopyWith<$Res> {
       String url,
       String? imageUrl,
       DateTime publishedAt,
+      String publishedAtUtc,
       String content,
       bool isFavourite});
 }
@@ -67,6 +69,7 @@ class _$ArticleCopyWithImpl<$Res, $Val extends Article>
     Object? url = null,
     Object? imageUrl = freezed,
     Object? publishedAt = null,
+    Object? publishedAtUtc = null,
     Object? content = null,
     Object? isFavourite = null,
   }) {
@@ -99,6 +102,10 @@ class _$ArticleCopyWithImpl<$Res, $Val extends Article>
           ? _value.publishedAt
           : publishedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      publishedAtUtc: null == publishedAtUtc
+          ? _value.publishedAtUtc
+          : publishedAtUtc // ignore: cast_nullable_to_non_nullable
+              as String,
       content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
@@ -126,6 +133,7 @@ abstract class _$$_ArticleCopyWith<$Res> implements $ArticleCopyWith<$Res> {
       String url,
       String? imageUrl,
       DateTime publishedAt,
+      String publishedAtUtc,
       String content,
       bool isFavourite});
 }
@@ -147,6 +155,7 @@ class __$$_ArticleCopyWithImpl<$Res>
     Object? url = null,
     Object? imageUrl = freezed,
     Object? publishedAt = null,
+    Object? publishedAtUtc = null,
     Object? content = null,
     Object? isFavourite = null,
   }) {
@@ -179,6 +188,10 @@ class __$$_ArticleCopyWithImpl<$Res>
           ? _value.publishedAt
           : publishedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      publishedAtUtc: null == publishedAtUtc
+          ? _value.publishedAtUtc
+          : publishedAtUtc // ignore: cast_nullable_to_non_nullable
+              as String,
       content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
@@ -202,6 +215,7 @@ class _$_Article implements _Article {
       required this.url,
       required this.imageUrl,
       required this.publishedAt,
+      required this.publishedAtUtc,
       required this.content,
       required this.isFavourite});
 
@@ -220,13 +234,15 @@ class _$_Article implements _Article {
   @override
   final DateTime publishedAt;
   @override
+  final String publishedAtUtc;
+  @override
   final String content;
   @override
   final bool isFavourite;
 
   @override
   String toString() {
-    return 'Article(sourceName: $sourceName, author: $author, title: $title, description: $description, url: $url, imageUrl: $imageUrl, publishedAt: $publishedAt, content: $content, isFavourite: $isFavourite)';
+    return 'Article(sourceName: $sourceName, author: $author, title: $title, description: $description, url: $url, imageUrl: $imageUrl, publishedAt: $publishedAt, publishedAtUtc: $publishedAtUtc, content: $content, isFavourite: $isFavourite)';
   }
 
   @override
@@ -245,14 +261,26 @@ class _$_Article implements _Article {
                 other.imageUrl == imageUrl) &&
             (identical(other.publishedAt, publishedAt) ||
                 other.publishedAt == publishedAt) &&
+            (identical(other.publishedAtUtc, publishedAtUtc) ||
+                other.publishedAtUtc == publishedAtUtc) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.isFavourite, isFavourite) ||
                 other.isFavourite == isFavourite));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, sourceName, author, title,
-      description, url, imageUrl, publishedAt, content, isFavourite);
+  int get hashCode => Object.hash(
+      runtimeType,
+      sourceName,
+      author,
+      title,
+      description,
+      url,
+      imageUrl,
+      publishedAt,
+      publishedAtUtc,
+      content,
+      isFavourite);
 
   @JsonKey(ignore: true)
   @override
@@ -270,6 +298,7 @@ abstract class _Article implements Article {
       required final String url,
       required final String? imageUrl,
       required final DateTime publishedAt,
+      required final String publishedAtUtc,
       required final String content,
       required final bool isFavourite}) = _$_Article;
 
@@ -287,6 +316,8 @@ abstract class _Article implements Article {
   String? get imageUrl;
   @override
   DateTime get publishedAt;
+  @override
+  String get publishedAtUtc;
   @override
   String get content;
   @override

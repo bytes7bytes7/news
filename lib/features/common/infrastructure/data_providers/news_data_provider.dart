@@ -10,12 +10,16 @@ class NewsDataProvider {
 
   final Dio _dio;
 
-  Future<NewsResponse> getTopNews() async {
+  Future<NewsResponse> getTopNews({required String query}) async {
     final response = await _dio.getUri(
       Uri(
         scheme: Env.scheme,
         host: Env.host,
         path: Env.topNewsPath,
+        queryParameters: {
+          'q': query,
+          'apiKey': Env.apiKey,
+        },
       ),
     );
 

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../../common/presentation/widgets/widgets.dart';
 import '../../application/blocs/all_news/all_news_bloc.dart';
 import '../../application/blocs/top_news/top_news_bloc.dart';
+
+const _snackBarDuration = Duration(seconds: 2);
+final _getIt = GetIt.instance;
 
 class NewsScreen extends StatelessWidget {
   const NewsScreen({super.key});
@@ -33,11 +37,11 @@ class NewsScreen extends StatelessWidget {
           providers: [
             BlocProvider<TopNewsBloc>(
               create: (context) =>
-                  TopNewsBloc()..add(const TopNewsEvent.load()),
+                  _getIt.get<TopNewsBloc>()..add(const TopNewsEvent.load()),
             ),
             BlocProvider<AllNewsBloc>(
               create: (context) =>
-                  AllNewsBloc()..add(const AllNewsEvent.load()),
+                  _getIt.get<AllNewsBloc>()..add(const AllNewsEvent.load()),
             ),
           ],
           child: const _Body(),
@@ -55,9 +59,23 @@ class _Body extends StatelessWidget {
     final topNewsBloc = context.read<TopNewsBloc>();
     final allNewsBloc = context.read<AllNewsBloc>();
 
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+
     return TabBarView(
       children: [
-        BlocBuilder<TopNewsBloc, TopNewsState>(
+        BlocConsumer<TopNewsBloc, TopNewsState>(
+          listener: (context, state) {
+            if (state.hasError) {
+              scaffoldMessenger.showSnackBar(
+                SnackBar(
+                  duration: _snackBarDuration,
+                  content: Text(
+                    state.error,
+                  ),
+                ),
+              );
+            }
+          },
           builder: (context, state) {
             if (state.isLoading) {
               return const Center(
@@ -76,7 +94,19 @@ class _Body extends StatelessWidget {
             );
           },
         ),
-        BlocBuilder<AllNewsBloc, AllNewsState>(
+        BlocConsumer<AllNewsBloc, AllNewsState>(
+          listener: (context, state) {
+            if (state.hasError) {
+              scaffoldMessenger.showSnackBar(
+                SnackBar(
+                  duration: _snackBarDuration,
+                  content: Text(
+                    state.error,
+                  ),
+                ),
+              );
+            }
+          },
           builder: (context, state) {
             if (state.isLoading) {
               return const Center(

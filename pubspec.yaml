@@ -17,6 +17,7 @@ dependencies:
   freezed_annotation: ^2.2.0
   get_it: ^7.6.0
   injectable: ^2.1.2
+  intl: ^0.18.1
   json_annotation: ^4.8.1
   mapster: ^0.3.2
 

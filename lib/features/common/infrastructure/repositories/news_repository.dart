@@ -4,10 +4,13 @@ import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mapster/mapster.dart';
 
+import '../../domain/dto/to_article.dart';
+import '../../domain/dto/to_news_result.dart';
 import '../../domain/entities/article/article.dart';
 import '../../domain/repositories/news_repository.dart';
 import '../../domain/value_objects/news_result/news_result.dart';
 import '../data_providers/news_data_provider.dart';
+import '../dto/article_response/article_response.dart';
 
 class _ArticleID extends Equatable {
   const _ArticleID(
@@ -18,12 +21,19 @@ class _ArticleID extends Equatable {
   factory _ArticleID.fromArticle(Article article) {
     return _ArticleID(
       article.sourceName,
-      article.publishedAt,
+      article.publishedAtUtc,
+    );
+  }
+
+  factory _ArticleID.fromArticleResponse(ArticleResponse articleResponse) {
+    return _ArticleID(
+      articleResponse.source.name,
+      articleResponse.publishedAt,
     );
   }
 
   final String sourceName;
-  final DateTime publishedAt;
+  final String publishedAt;
 
   @override
   List<Object?> get props => [
@@ -43,12 +53,26 @@ class ProdNewsRepository implements NewsRepository {
   final Mapster _mapster;
 
   final _cache = HashMap<_ArticleID, Article>();
+  final _saved = HashMap<_ArticleID, Article>();
 
   @override
-  Future<NewsResult> getTopNews() async {
-    final response = await _newsDataProvider.getTopNews();
+  Future<NewsResult> getTopNews({required String query}) async {
+    final response = await _newsDataProvider.getTopNews(
+      query: query,
+    );
 
-    return _mapster.map1(response, To<NewsResult>());
+    final toArticles = <ToArticle>[];
+    for (final e in response.articles) {
+      final id = _ArticleID.fromArticleResponse(e);
+      final saved = _saved[id];
+
+      toArticles.add(ToArticle(saved != null));
+    }
+
+    final result =
+        _mapster.map2(response, ToNewsResult(toArticles), To<NewsResult>());
+
+    return result;
   }
 
   @override

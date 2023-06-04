@@ -11,6 +11,8 @@ class AllNewsState extends Equatable {
   final String error;
   final List<ArticleVM> articles;
 
+  bool get hasError => error.isNotEmpty;
+
   AllNewsState withLoading() => copyWith(isLoading: true);
 
   AllNewsState withoutLoading() => copyWith(isLoading: false);
