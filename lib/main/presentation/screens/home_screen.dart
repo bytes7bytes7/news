@@ -16,10 +16,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: [
-        const NewsScreen(),
-        const FavouriteNewsScreen(),
-      ][_index],
+      body: IndexedStack(
+        index: _index,
+        children: const [
+          NewsScreen(),
+          FavouriteNewsScreen(),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _index,
         onTap: (i) {

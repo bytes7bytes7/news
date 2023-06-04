@@ -30,7 +30,7 @@ class AllNewsBloc extends Bloc<AllNewsEvent, AllNewsState> {
 
     on<_UpdateArticleEvent>(_updateArticle);
 
-    _newsSub = _newsService.events.listen((event) {
+    _newsService.events.listen((event) {
       if (event is ArticleUpdatedNewsEvent) {
         add(AllNewsEvent._updateArticle(event.article));
       }
@@ -40,15 +40,6 @@ class AllNewsBloc extends Bloc<AllNewsEvent, AllNewsState> {
   final NewsService _newsService;
   final AllNewsCoordinator _coordinator;
   final Mapster _mapster;
-
-  StreamSubscription? _newsSub;
-
-  @override
-  Future<void> close() async {
-    await _newsSub?.cancel();
-
-    await super.close();
-  }
 
   Future<void> _load(
     _LoadEvent event,

@@ -27,7 +27,7 @@ class FavouriteNewsBloc extends Bloc<FavouriteNewsEvent, FavouriteNewsState> {
 
     on<_UpdateArticleEvent>(_updateArticle);
 
-    _newsSub = _newsService.events.listen((event) {
+    _newsService.events.listen((event) {
       if (event is ArticleUpdatedNewsEvent) {
         add(FavouriteNewsEvent._updateArticle(event.article));
       }
@@ -37,15 +37,6 @@ class FavouriteNewsBloc extends Bloc<FavouriteNewsEvent, FavouriteNewsState> {
   final NewsService _newsService;
   final FavouriteNewsCoordinator _coordinator;
   final Mapster _mapster;
-
-  StreamSubscription? _newsSub;
-
-  @override
-  Future<void> close() async {
-    await _newsSub?.cancel();
-
-    await super.close();
-  }
 
   Future<void> _load(
     _LoadEvent event,
