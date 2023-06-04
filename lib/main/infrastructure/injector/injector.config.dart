@@ -16,10 +16,12 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:mapster/mapster.dart' as _i7;
 
 import '../../../features/common/application/application.dart' as _i3;
+import '../../../features/common/application/blocs/article/article_bloc.dart'
+    as _i16;
 import '../../../features/common/domain/repositories/news_repository.dart'
     as _i9;
 import '../../../features/common/domain/services/news_service.dart' as _i11;
-import '../../../features/common/domain/services/services.dart' as _i18;
+import '../../../features/common/domain/services/services.dart' as _i19;
 import '../../../features/common/infrastructure/data_providers/news_data_provider.dart'
     as _i8;
 import '../../../features/common/infrastructure/providers/beautified_date_time_provider.dart'
@@ -27,20 +29,20 @@ import '../../../features/common/infrastructure/providers/beautified_date_time_p
 import '../../../features/common/infrastructure/repositories/news_repository.dart'
     as _i10;
 import '../../../features/common/infrastructure/third_party/mapster_registrar.dart'
-    as _i16;
-import '../../../features/news/application/blocs/all_news/all_news_bloc.dart'
-    as _i19;
-import '../../../features/news/application/blocs/top_news/top_news_bloc.dart'
     as _i17;
+import '../../../features/news/application/blocs/all_news/all_news_bloc.dart'
+    as _i20;
+import '../../../features/news/application/blocs/top_news/top_news_bloc.dart'
+    as _i18;
 import '../../../features/news/application/coordinators/all_news_coordinator.dart'
     as _i14;
 import '../../../features/news/application/coordinators/top_news_coordinator.dart'
     as _i12;
 import '../coordinators/all_news_coordinator.dart' as _i15;
 import '../coordinators/top_news_coordinator.dart' as _i13;
-import '../router.dart' as _i22;
-import '../third_party/dio_module.dart' as _i20;
-import '../third_party/mapster_module.dart' as _i21;
+import '../router.dart' as _i23;
+import '../third_party/dio_module.dart' as _i21;
+import '../third_party/mapster_module.dart' as _i22;
 
 // ignore_for_file: unnecessary_lambdas
 // ignore_for_file: lines_longer_than_80_chars
@@ -73,14 +75,18 @@ _i1.GetIt init(
       _i13.ProdTopNewsCoordinator(gh<_i6.GlobalKey<_i6.NavigatorState>>()));
   gh.singleton<_i14.AllNewsCoordinator>(
       _i15.ProdAllNewsCoordinator(gh<_i6.GlobalKey<_i6.NavigatorState>>()));
-  gh.singleton<_i16.CommonMapsterRegistrar>(
-      _i16.CommonMapsterRegistrar(gh<_i7.Mapster>())..register());
-  gh.factory<_i17.TopNewsBloc>(() => _i17.TopNewsBloc(
-        gh<_i18.NewsService>(),
+  gh.factory<_i16.ArticleBloc>(() => _i16.ArticleBloc(
+        gh<_i11.NewsService>(),
+        gh<_i7.Mapster>(),
+      ));
+  gh.singleton<_i17.CommonMapsterRegistrar>(
+      _i17.CommonMapsterRegistrar(gh<_i7.Mapster>())..register());
+  gh.factory<_i18.TopNewsBloc>(() => _i18.TopNewsBloc(
+        gh<_i19.NewsService>(),
         gh<_i12.TopNewsCoordinator>(),
         gh<_i7.Mapster>(),
       ));
-  gh.factory<_i19.AllNewsBloc>(() => _i19.AllNewsBloc(
+  gh.factory<_i20.AllNewsBloc>(() => _i20.AllNewsBloc(
         gh<_i11.NewsService>(),
         gh<_i14.AllNewsCoordinator>(),
         gh<_i7.Mapster>(),
@@ -88,8 +94,8 @@ _i1.GetIt init(
   return getIt;
 }
 
-class _$DioModule extends _i20.DioModule {}
+class _$DioModule extends _i21.DioModule {}
 
-class _$MapsterModule extends _i21.MapsterModule {}
+class _$MapsterModule extends _i22.MapsterModule {}
 
-class _$RouterModule extends _i22.RouterModule {}
+class _$RouterModule extends _i23.RouterModule {}

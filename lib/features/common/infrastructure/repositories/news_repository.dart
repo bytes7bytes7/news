@@ -84,4 +84,17 @@ class ProdNewsRepository implements NewsRepository {
       _cache[article.id] = article;
     }
   }
+
+  @override
+  Future<Article?> getByID(ArticleID id) async {
+    final cached = _cache[id];
+
+    if (cached != null) {
+      return cached;
+    }
+
+    final saved = _saved[id];
+
+    return saved;
+  }
 }

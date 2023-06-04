@@ -1,4 +1,5 @@
 import '../entities/article/article.dart';
+import '../value_objects/article_id.dart';
 import '../value_objects/news_result/news_result.dart';
 
 abstract class NewsRepository {
@@ -17,4 +18,6 @@ abstract class NewsRepository {
   });
 
   Future<void> cacheAll(List<Article> articles);
+
+  Future<Article?> getByID(ArticleID id);
 }

@@ -1,7 +1,9 @@
 import 'package:injectable/injectable.dart';
 
+import '../entities/article/article.dart';
 import '../exceptions/exceptions.dart';
 import '../repositories/news_repository.dart';
+import '../value_objects/article_id.dart';
 import '../value_objects/news_result/news_result.dart';
 
 const _query = 'war';
@@ -48,6 +50,18 @@ class NewsService {
       return result;
     } catch (e) {
       throw const AllNewsNotLoaded();
+    }
+  }
+
+  Future<Article?> getByID({
+    required String id,
+  }) async {
+    try {
+      final result = await _newsRepository.getByID(ArticleID.fromString(id));
+
+      return result;
+    } catch (e) {
+      throw const ArticleNotFound();
     }
   }
 }
