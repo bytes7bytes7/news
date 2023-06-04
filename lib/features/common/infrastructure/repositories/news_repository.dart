@@ -56,9 +56,13 @@ class ProdNewsRepository implements NewsRepository {
   final _saved = HashMap<_ArticleID, Article>();
 
   @override
-  Future<NewsResult> getTopNews({required String query}) async {
+  Future<NewsResult> getTopNews({
+    required String query,
+    required int pageSize,
+  }) async {
     final response = await _newsDataProvider.getTopNews(
       query: query,
+      pageSize: pageSize,
     );
 
     final toArticles = <ToArticle>[];

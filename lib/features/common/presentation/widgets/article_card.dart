@@ -38,8 +38,6 @@ class ArticleCard extends StatelessWidget {
                     Row(
                       children: [
                         if (article.isFavourite)
-                          const SizedBox.shrink()
-                        else
                           Row(
                             children: const [
                               Icon(
@@ -50,7 +48,9 @@ class ArticleCard extends StatelessWidget {
                                 width: 4,
                               ),
                             ],
-                          ),
+                          )
+                        else
+                          const SizedBox.shrink(),
                         Text(
                           article.sourceName,
                           style: theme.textTheme.labelSmall,
