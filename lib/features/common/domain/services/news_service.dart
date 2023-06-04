@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:injectable/injectable.dart';
 
 import '../entities/article/article.dart';
+import '../events/news_event.dart';
 import '../exceptions/exceptions.dart';
 import '../repositories/news_repository.dart';
 import '../value_objects/article_id.dart';
@@ -11,11 +14,20 @@ const _pageSize = 15;
 
 @singleton
 class NewsService {
-  const NewsService(
+  NewsService(
     this._newsRepository,
   );
 
   final NewsRepository _newsRepository;
+
+  final _eventController = StreamController<NewsEvent>.broadcast();
+
+  Stream<NewsEvent> get events => _eventController.stream;
+
+  @disposeMethod
+  void dispose() {
+    _eventController.close();
+  }
 
   Future<NewsResult> getTopNews({
     required int page,
@@ -67,7 +79,11 @@ class NewsService {
 
   Future<void> save(ArticleID id) async {
     try {
-      await _newsRepository.save(id);
+      final article = await _newsRepository.save(id);
+
+      if (article != null) {
+        _eventController.add(NewsEvent.articleUpdated(article));
+      }
     } catch (e) {
       throw const ArticleSaveError();
     }
@@ -75,7 +91,11 @@ class NewsService {
 
   Future<void> removeFromSaved(ArticleID id) async {
     try {
-      await _newsRepository.removeFromSaved(id);
+      final article = await _newsRepository.removeFromSaved(id);
+
+      if (article != null) {
+        _eventController.add(NewsEvent.articleUpdated(article));
+      }
     } catch (e) {
       throw const ArticleSaveError();
     }

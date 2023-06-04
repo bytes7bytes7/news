@@ -23,7 +23,7 @@ abstract class NewsRepository {
 
   Future<Article?> getByID(ArticleID id);
 
-  Future<void> save(ArticleID id);
+  Future<Article?> save(ArticleID id);
 
-  Future<void> removeFromSaved(ArticleID id);
+  Future<Article?> removeFromSaved(ArticleID id);
 }

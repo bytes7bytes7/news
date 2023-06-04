@@ -12,7 +12,7 @@ part 'all_news_event.dart';
 
 part 'all_news_state.dart';
 
-@injectable
+@singleton
 class AllNewsBloc extends Bloc<AllNewsEvent, AllNewsState> {
   AllNewsBloc(
     this._newsService,

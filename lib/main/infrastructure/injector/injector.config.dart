@@ -90,7 +90,10 @@ Future<_i1.GetIt> init(
     },
     preResolve: true,
   );
-  gh.singleton<_i13.NewsService>(_i13.NewsService(gh<_i11.NewsRepository>()));
+  gh.singleton<_i13.NewsService>(
+    _i13.NewsService(gh<_i11.NewsRepository>()),
+    dispose: (i) => i.dispose(),
+  );
   gh.singleton<_i14.TopNewsCoordinator>(
       _i15.ProdTopNewsCoordinator(gh<_i7.GlobalKey<_i7.NavigatorState>>()));
   gh.singleton<_i16.AllNewsCoordinator>(
@@ -99,16 +102,19 @@ Future<_i1.GetIt> init(
       _i19.ProdArticleCoordinator(gh<_i7.GlobalKey<_i7.NavigatorState>>()));
   gh.singleton<_i20.CommonMapsterRegistrar>(
       _i20.CommonMapsterRegistrar(gh<_i9.Mapster>())..register());
-  gh.factory<_i21.TopNewsBloc>(() => _i21.TopNewsBloc(
-        gh<_i22.NewsService>(),
-        gh<_i14.TopNewsCoordinator>(),
-        gh<_i9.Mapster>(),
-      ));
-  gh.factory<_i23.AllNewsBloc>(() => _i23.AllNewsBloc(
-        gh<_i13.NewsService>(),
-        gh<_i16.AllNewsCoordinator>(),
-        gh<_i9.Mapster>(),
-      ));
+  gh.singleton<_i21.TopNewsBloc>(
+    _i21.TopNewsBloc(
+      gh<_i22.NewsService>(),
+      gh<_i14.TopNewsCoordinator>(),
+      gh<_i9.Mapster>(),
+    ),
+    dispose: (i) => i.close(),
+  );
+  gh.singleton<_i23.AllNewsBloc>(_i23.AllNewsBloc(
+    gh<_i13.NewsService>(),
+    gh<_i16.AllNewsCoordinator>(),
+    gh<_i9.Mapster>(),
+  ));
   gh.factory<_i24.ArticleBloc>(() => _i24.ArticleBloc(
         gh<_i13.NewsService>(),
         gh<_i18.ArticleCoordinator>(),

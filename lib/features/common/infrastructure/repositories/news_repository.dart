@@ -121,11 +121,13 @@ class ProdNewsRepository implements NewsRepository {
   }
 
   @override
-  Future<void> save(ArticleID id) async {
+  Future<Article?> save(ArticleID id) async {
     final saved = _box.get(id.value);
 
     if (saved != null) {
-      return;
+      final article = _mapster.map1(saved, To<Article>());
+
+      return article;
     }
 
     final article = _cache[id];
@@ -134,28 +136,47 @@ class ProdNewsRepository implements NewsRepository {
       throw Exception('Article not found');
     }
 
+    final updatedArticle = article.copyWith(
+      isFavourite: true,
+    );
+
     final entity = _mapster.map1(
-      article.copyWith(isFavourite: true),
+      updatedArticle,
       To<ArticleEntity>(),
     );
 
     await _box.put(id.value, entity);
 
-    final cached = _cache[id];
+    _cache[id] = updatedArticle;
 
-    if (cached != null) {
-      _cache[id] = cached.copyWith(isFavourite: true);
-    }
+    return updatedArticle;
   }
 
   @override
-  Future<void> removeFromSaved(ArticleID id) async {
+  Future<Article?> removeFromSaved(ArticleID id) async {
+    final articleEntity = _box.get(id.value);
+
     await _box.delete(id.value);
 
     final cached = _cache[id];
 
-    if (cached != null) {
-      _cache[id] = cached.copyWith(isFavourite: false);
+    if (cached == null) {
+      if (articleEntity == null) {
+        return null;
+      }
+
+      final article = _mapster.map1(articleEntity, To<Article>());
+      return article.copyWith(
+        isFavourite: false,
+      );
     }
+
+    final updated = cached.copyWith(
+      isFavourite: false,
+    );
+
+    _cache[id] = updated;
+
+    return updated;
   }
 }
