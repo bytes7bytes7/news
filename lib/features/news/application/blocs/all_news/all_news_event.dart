@@ -13,6 +13,9 @@ abstract class AllNewsEvent extends Equatable {
   const factory AllNewsEvent.doublePressArticle({required String id}) =
       _DoublePressArticleEvent;
 
+  const factory AllNewsEvent._updateArticle(Article article) =
+      _UpdateArticleEvent;
+
   @override
   List<Object?> get props => [];
 }
@@ -35,4 +38,10 @@ class _DoublePressArticleEvent extends AllNewsEvent {
   const _DoublePressArticleEvent({required this.id});
 
   final String id;
+}
+
+class _UpdateArticleEvent extends AllNewsEvent {
+  const _UpdateArticleEvent(this.article);
+
+  final Article article;
 }

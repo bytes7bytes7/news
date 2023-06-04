@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mapster/mapster.dart';
 
 import '../../../../common/application/view_models/view_models.dart';
+import '../../../../common/domain/entities/article/article.dart';
+import '../../../../common/domain/events/news_event.dart';
 import '../../../../common/domain/services/news_service.dart';
 import '../../../../common/domain/value_objects/article_id.dart';
 import '../../coordinators/all_news_coordinator.dart';
@@ -23,11 +27,29 @@ class AllNewsBloc extends Bloc<AllNewsEvent, AllNewsState> {
     on<_LoadMoreEvent>(_loadMore);
     on<_PressArticleEvent>(_pressArticle);
     on<_DoublePressArticleEvent>(_doublePressArticle);
+
+    on<_UpdateArticleEvent>(_updateArticle);
+
+    _newsSub = _newsService.events.listen((event) {
+      if (event is ArticleUpdatedNewsEvent) {
+        add(AllNewsEvent._updateArticle(event.article));
+      }
+    });
   }
 
   final NewsService _newsService;
   final AllNewsCoordinator _coordinator;
   final Mapster _mapster;
+
+  StreamSubscription? _newsSub;
+
+  @override
+  @disposeMethod
+  Future<void> close() async {
+    await _newsSub?.cancel();
+
+    await super.close();
+  }
 
   Future<void> _load(
     _LoadEvent event,
@@ -152,5 +174,25 @@ class AllNewsBloc extends Bloc<AllNewsEvent, AllNewsState> {
       );
       emit(state.copyWith());
     }
+  }
+
+  void _updateArticle(
+    _UpdateArticleEvent event,
+    Emitter<AllNewsState> emit,
+  ) {
+    final articles = List.of(state.articles);
+
+    final index = articles.indexWhere((e) => e.id == event.article.id.value);
+    if (index == -1) {
+      return;
+    }
+
+    final updated = _mapster.map1(event.article, To<ArticleVM>());
+
+    emit(
+      state.copyWith(
+        articles: articles..[index] = updated,
+      ),
+    );
   }
 }

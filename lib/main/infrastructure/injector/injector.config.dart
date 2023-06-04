@@ -110,11 +110,14 @@ Future<_i1.GetIt> init(
     ),
     dispose: (i) => i.close(),
   );
-  gh.singleton<_i23.AllNewsBloc>(_i23.AllNewsBloc(
-    gh<_i13.NewsService>(),
-    gh<_i16.AllNewsCoordinator>(),
-    gh<_i9.Mapster>(),
-  ));
+  gh.singleton<_i23.AllNewsBloc>(
+    _i23.AllNewsBloc(
+      gh<_i13.NewsService>(),
+      gh<_i16.AllNewsCoordinator>(),
+      gh<_i9.Mapster>(),
+    ),
+    dispose: (i) => i.close(),
+  );
   gh.factory<_i24.ArticleBloc>(() => _i24.ArticleBloc(
         gh<_i13.NewsService>(),
         gh<_i18.ArticleCoordinator>(),

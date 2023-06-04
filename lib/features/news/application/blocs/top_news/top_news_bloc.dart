@@ -27,6 +27,7 @@ class TopNewsBloc extends Bloc<TopNewsEvent, TopNewsState> {
     on<_LoadMoreEvent>(_loadMore);
     on<_PressArticleEvent>(_pressArticle);
     on<_DoublePressArticleEvent>(_doublePressArticle);
+
     on<_UpdateArticleEvent>(_updateArticle);
 
     _newsSub = _newsService.events.listen((event) {
