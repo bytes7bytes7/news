@@ -19,6 +19,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   ) : super(const ArticleState()) {
     on<_SetIDEvent>(_setID);
     on<_LoadEvent>(_load);
+    on<_PressFavouriteEvent>(_pressFavourite);
   }
 
   final NewsService _newsService;
@@ -70,6 +71,38 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
       );
     } catch (e) {
       emit(state.withError('Error'));
+      emit(state.copyWith());
+    }
+  }
+
+  Future<void> _pressFavourite(
+    _PressFavouriteEvent event,
+    Emitter<ArticleState> emit,
+  ) async {
+    try {
+      final article = state.article?.copyWith();
+
+      if (article == null) {
+        return;
+      }
+
+      if (article.isFavourite) {
+        await _newsService.removeFromSaved(ArticleID.fromString(article.id));
+      } else {
+        await _newsService.save(ArticleID.fromString(article.id));
+      }
+
+      emit(
+        state.copyWith(
+          article: article.copyWith(
+            isFavourite: !article.isFavourite,
+          ),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.withError('An error occurs during modifying favourite articles'),
+      );
       emit(state.copyWith());
     }
   }

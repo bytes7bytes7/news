@@ -38,6 +38,8 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<ArticleBloc>();
+
     return AppBar(
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
@@ -58,7 +60,7 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
               icon: Icon(
                 article.isFavourite ? Icons.favorite : Icons.favorite_border,
               ),
-              onPressed: () {},
+              onPressed: () => bloc.add(const ArticleEvent.pressFavourite()),
             );
           },
         ),

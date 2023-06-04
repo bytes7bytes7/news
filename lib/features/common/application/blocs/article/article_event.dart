@@ -7,6 +7,8 @@ abstract class ArticleEvent extends Equatable {
 
   const factory ArticleEvent.load() = _LoadEvent;
 
+  const factory ArticleEvent.pressFavourite() = _PressFavouriteEvent;
+
   @override
   List<Object?> get props => [];
 }
@@ -19,4 +21,8 @@ class _SetIDEvent extends ArticleEvent {
 
 class _LoadEvent extends ArticleEvent {
   const _LoadEvent();
+}
+
+class _PressFavouriteEvent extends ArticleEvent {
+  const _PressFavouriteEvent();
 }
